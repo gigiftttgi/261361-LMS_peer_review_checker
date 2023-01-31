@@ -3,7 +3,28 @@
 <link rel="stylesheet" href="/static/style.css">  <!-- เชื่อมโยงกับไฟล์ style.css -->
 </head>
 <body>
-<h1>HELLO PYTHON</h1> 
+   <div class="head">  
+      <div class="step">
+         <div class="circle">
+            <div class="circle-txt">
+            1
+            </div>
+         </div>
+         <div class="line"></div>
+      </div>
+      <div class="step">
+         <div class="circle">2</div>
+         <div class="line"></div>
+      </div>
+      <div class="step">
+         <div class="circle">3</div>
+      </div>
+   </div>
+<!-- <h1>HELLO PYTHON</h1>  -->
+<form enctype = "multipart/form-data" action = "/upload" method = "post">
+   <p>File: <input type = "file" name = "file" /></p>
+   <p><input type = "submit" value = "Upload" /></p>
+</form>
 <a href="/processing">process</a>
 </body>
 </html>

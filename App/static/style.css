@@ -1,4 +1,46 @@
 body {
-    background: black; 
+    background: rgb(255, 255, 255); 
     color: yellow;     
+}
+
+.head{
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.step{
+    display: flex;
+    align-items: center;
+    padding: 20px 0px 20px 0px;
+}
+
+.circle{
+    width: 100px;
+    height: 100px;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    border-radius: 50%;
+    border: 3px solid black;
+    /* overflow: hidden; */
+    /* font-size: 50px;
+    color: rgb(0, 0, 0);
+    text-align: center; */
+    vertical-align: middle;
+    background: rgb(255, 255, 255);    
+}
+.circle-txt{
+    font-size: 50px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pad_line{
+    padding: 0px 10px 0px 10px;
+}
+.line{
+    width: 100px;
+    height: 0px;
+    border: 3px solid black;
 }
