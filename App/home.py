@@ -19,6 +19,10 @@ def Home():
 def Processing():
    return render_template("process.html")
 
+@app.route('/result')
+def Result():
+   return render_template("result.html")
+
 def allowed_file(filename):
    return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
