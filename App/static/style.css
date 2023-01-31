@@ -22,7 +22,6 @@ body {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  /* border: 3px solid black; */
   background: #b9b9b9;
 
   display: flex;
@@ -37,7 +36,6 @@ body {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  /* border: 3px solid black; */
   background: #5fba55;
 
   display: flex;
@@ -45,6 +43,20 @@ body {
   align-items: center;
   text-align: center;
   font-size: 40px;
+  color: #ffffff;
+}
+
+.circle-error {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #b1413b;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 50px;
   color: #ffffff;
 }
 

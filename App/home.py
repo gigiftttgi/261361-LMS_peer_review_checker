@@ -19,6 +19,10 @@ def Home():
 def Processing():
    return render_template("process.html")
 
+@app.route('/error')
+def Error():
+   return render_template("processError.html")
+
 @app.route('/result')
 def Result():
    return render_template("result.html")
