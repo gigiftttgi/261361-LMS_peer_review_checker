@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300;400&display=swap");
+
+body {
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-family: "Prompt", sans-serif;
+}
+
+.head {
+  display: flex;
+  /* overflow: hidden; */
+  justify-content: center;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  padding: 20px 0px 20px 0px;
+}
+
+.circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #b9b9b9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 40px;
+  color: #ffffff;
+}
+
+.circle-check {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #5fba55;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 40px;
+  color: #ffffff;
+}
+
+.circle-error {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #b1413b;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 50px;
+  color: #ffffff;
+}
+
+.line {
+  width: 150px;
+  height: 0px;
+  border: 2px solid #b9b9b9;
+}
+
+.line-check {
+  width: 150px;
+  height: 0px;
+  border: 2px solid #5fba55;
+}
+
+.line-pad {
+  padding: 0px 10px 0px 10px;
+}
+
+.step-txt {
+  font-size: 20px;
+  color: #b9b9b9;
+  text-align: center;
+  padding: 5px 0px 0px 0px;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+  padding-top: 10px;
+}
+
+.borderout {
+  width: 1000px;
+  height: 550px;
+  border: 3px solid #000000;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: #ffffff; */
+}
+
+.borderin {
+  width: 960px;
+  height: 510px;
+  border: 3px dashed #000000;
+  border-radius: 10px;
+  /* background: #ffffff; */
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -15,12 +15,16 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def Home():
    return render_template("upload.html")
 
+@app.route('/upload-error')
+def UploadError():
+   return render_template("uploadError.html")
+
 @app.route('/processing')
 def Processing():
    return render_template("process.html")
 
-@app.route('/error')
-def Error():
+@app.route('/process-error')
+def ProcessError():
    return render_template("processError.html")
 
 @app.route('/result')
