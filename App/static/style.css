@@ -3,7 +3,7 @@
 
 body {
   background: #ffffff;
-  color: #3d3d3d;
+  color: #161616;
   /* font-family: "Prompt", sans-serif; */
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
@@ -44,7 +44,7 @@ body {
   text-align: center;
   padding-top: 10px;
   font-size: 15px;
-  color: #000000;
+  color: #161616;
 }
 
 .circle {
@@ -134,12 +134,12 @@ body {
 .borderout {
   width: 900px;
   height: 530px;
-  border: 3px solid #161616;
+  /* border: 3px solid #161616; */
   border-radius: 10px;
   /* display: flex; */
   justify-content: center;
   align-items: center;
-  background: #ffffff;
+  background: #f9f9f9;
   /* box-shadow: 3px 3px 3px #888888; */
   text-align: center;
 }
@@ -152,7 +152,7 @@ body {
   height: 330px;
   border: 4px dashed #088f8f;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .csvpic {
@@ -172,7 +172,7 @@ body {
 }
 
 .uploadbtn {
-  border: 3px solid #000000;
+  border: 3px solid #161616;
   border-radius: 15px;
   align-items: center;
   text-align: center;
@@ -180,7 +180,7 @@ body {
   padding: 6px 30px 6px 30px;
   margin: 20px 0px 0px 680px;
   float: right;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
 }
 
 .uploadbtn:hover {
@@ -190,8 +190,8 @@ body {
 }
 
 .hbody {
-  padding: 25px 0px 25px 0px;
-  font-size: 40px;
+  padding: 20px 0px 20px 0px;
+  font-size: 30px;
 }
 
 .hide {
@@ -199,37 +199,19 @@ body {
 }
 
 .file_upload {
-  opacity: 0;
-
-  /* IE 8 */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-
-  /* IE 5-7 */
-  filter: alpha(opacity=0);
-
-  /* Netscape or and older firefox browsers */
-  -moz-opacity: 0;
-
-  /* older Safari browsers */
-  -khtml-opacity: 0;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
+  color: #088f8f;
 }
 
 /* Processing page*/
 .loader {
+  justify-content: center;
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #088f8f; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
+  text-align: center;
 }
 
 @keyframes spin {
