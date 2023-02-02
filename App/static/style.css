@@ -1,17 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Prompt:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
 
 body {
   background: #ffffff;
-  color: #161616;
-  font-family: "Prompt", sans-serif;
+  color: #3d3d3d;
+  /* font-family: "Prompt", sans-serif; */
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  /* width: 100%; */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
 }
 
 .header {
+  margin-top: 0px;
   font-size: 19px;
-  margin: 10px 10px 5px 0px;
   text-align: right;
-  color: #161616;
-  background: #f3f3f3;
+  background: #161616;
+  margin: 0;
+  padding: 10px 20px 10px 10px;
+}
+
+.headertxt {
+  font-size: 19px;
+  color: #ffffff;
 }
 
 /* Step */
@@ -53,7 +67,7 @@ body {
   height: 75px;
   border-radius: 50%;
   /* background: #b9b9b9; */
-  border: 3.5px solid #764ea1;
+  border: 3.5px solid #088f8f;
 
   display: flex;
   justify-content: center;
@@ -67,8 +81,8 @@ body {
   width: 75px;
   height: 75px;
   border-radius: 50%;
-  background: #764ea1;
-  border: 3.5px solid #764ea1;
+  background: #088f8f;
+  border: 3.5px solid #088f8f;
 
   display: flex;
   justify-content: center;
@@ -102,7 +116,7 @@ body {
 .line-suss {
   width: 250px;
   height: 0px;
-  border: 2px solid #764ea1;
+  border: 2px solid #088f8f;
 }
 
 .line-pad {
@@ -115,13 +129,12 @@ body {
   justify-content: center;
   align-items: center;
   /* text-align: center; */
-  padding-top: 10px;
 }
 
 .borderout {
   width: 900px;
-  height: 570px;
-  border: 3px solid #ffffff;
+  height: 530px;
+  border: 3px solid #161616;
   border-radius: 10px;
   /* display: flex; */
   justify-content: center;
@@ -135,9 +148,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 800px;
-  height: 370px;
-  border: 3px dashed #000000;
+  width: 780px;
+  height: 330px;
+  border: 4px dashed #088f8f;
   border-radius: 10px;
   font-size: 20px;
 }
@@ -171,7 +184,7 @@ body {
 }
 
 .uploadbtn:hover {
-  background-color: #31456a;
+  background-color: #088f8f;
   color: white;
   border: 3px solid #ffffff;
 }
@@ -181,10 +194,38 @@ body {
   font-size: 40px;
 }
 
+.hide {
+  display: none;
+}
+
+.file_upload {
+  opacity: 0;
+
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+
+  /* IE 5-7 */
+  filter: alpha(opacity=0);
+
+  /* Netscape or and older firefox browsers */
+  -moz-opacity: 0;
+
+  /* older Safari browsers */
+  -khtml-opacity: 0;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* Processing page*/
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #31456a; /* Blue */
+  border-top: 16px solid #088f8f; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
