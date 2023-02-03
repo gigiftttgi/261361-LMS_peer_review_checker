@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
 
 body {
-  background: #ffffff;
+  background: #f9f9f9;
   color: #161616;
   /* font-family: "Prompt", sans-serif; */
   font-family: "Open Sans", sans-serif;
@@ -139,7 +139,7 @@ body {
   /* display: flex; */
   justify-content: center;
   align-items: center;
-  background: #f9f9f9;
+  background: #ffffff;
   /* box-shadow: 3px 3px 3px #888888; */
   text-align: center;
 }
@@ -178,9 +178,9 @@ body {
   text-align: center;
   font-size: 19px;
   padding: 6px 30px 6px 30px;
-  margin: 20px 0px 0px 680px;
+  margin: 20px 0px 0px 555px;
   float: right;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
 }
 
 .uploadbtn:hover {
@@ -214,6 +214,7 @@ body {
   text-align: center;
 }
 
+/* Process page */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -221,4 +222,20 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Process error page */
+.trybtn {
+  font-size: 20px;
+  border: 3px solid #088f8f;
+  color: #088f8f;
+  border-radius: 15px;
+  padding: 5px 10px 5px 10px;
+  margin: 5px 0px 0px 0px;
+}
+
+.trybtn:hover {
+  background-color: #088f8f;
+  color: white;
+  border: 3px solid #088f8f;
 }

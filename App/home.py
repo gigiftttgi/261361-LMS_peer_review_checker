@@ -23,7 +23,7 @@ def UploadError():
 def Processing():
    return render_template("process.html")
 
-@app.route('/process-error')
+@app.route('/processing-error')
 def ProcessError():
    return render_template("processError.html")
 
@@ -46,7 +46,8 @@ def uploader():
          f.save(os.path.join (app.config['UPLOAD_FOLDER'],f.filename))
          return redirect(url_for('Processing'))
       else :
-         return render_template("uploadError.html")
+         return redirect(url_for('UploadError'))
+    else: return redirect(url_for('UploadError'))
 
 if __name__ == '__main__':
  app.debug = True
