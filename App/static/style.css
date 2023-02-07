@@ -239,3 +239,90 @@ body {
   color: white;
   border: 3px solid #088f8f;
 }
+
+/* Result page */
+/* .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+} */
+
+.selectrw {
+  overflow: hidden;
+  /* padding: 5px 0px 5px 0px; */
+  border: 2px solid #088f8f;
+  border-radius: 20px;
+  margin: 10px 0px 10px 0px;
+}
+
+.selctbtn {
+  color: #088f8f;
+  font-size: 20px;
+  padding: 5px 8px 5px 8px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.selctbtn-active {
+  color: #ffffff;
+  font-size: 20px;
+  padding: 5px 8px 5px 8px;
+  border-style: hidden;
+  border-radius: 18px;
+  background-color: #088f8f;
+}
+
+.tablebd {
+  border: 1px solid #8d8d8d;
+  width: 860px;
+  height: 450px;
+}
+
+table {
+  width: 100%;
+}
+
+.headtb {
+  position: sticky;
+  margin: 5px 5px 5px 5px;
+  color: #e8e8e8;
+}
+
+thead tr th {
+  position: sticky;
+  top: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  padding: 10px;
+  /* border-left: 1px solid #161616; */
+  border-bottom: 2px solid #e8e8e8;
+  background: #ffffff;
+  color: #088f8f;
+  box-shadow: 0px 0px 0 2px #e8e8e8;
+  text-align: center;
+}
+
+/* Basic Demo styling */
+
+table td {
+  text-align: center;
+  padding: 8px;
+}
+tbody tr {
+  border-bottom: 1px solid #e8e8e8;
+}
+thead {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+}
+tbody tr:hover {
+  background: #e6f7ff;
+}
