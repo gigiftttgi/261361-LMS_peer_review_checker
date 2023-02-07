@@ -276,20 +276,21 @@ body {
 }
 
 .tablebd {
-  border: 1px solid #8d8d8d;
+  border: 1px solid #e8e8e8;
   width: 860px;
   height: 450px;
+  overflow: auto;
 }
 
 table {
   width: 100%;
 }
 
-.headtb {
+/* .headtb {
   position: sticky;
   margin: 5px 5px 5px 5px;
-  color: #e8e8e8;
-}
+  color: #e8e8e8; 
+} */
 
 thead tr th {
   position: sticky;
@@ -301,7 +302,7 @@ table {
 }
 
 th {
-  padding: 10px;
+  padding: 12px;
   /* border-left: 1px solid #161616; */
   border-bottom: 2px solid #e8e8e8;
   background: #ffffff;
@@ -324,5 +325,5 @@ thead {
   color: rgba(0, 0, 0, 0.85);
 }
 tbody tr:hover {
-  background: #e6f7ff;
+  background: #daf3ff;
 }

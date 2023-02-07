@@ -39,10 +39,7 @@ def allowed_file(filename):
 def uploader():
     if request.method == 'POST':
       f = request.files['filename']
-      #   file = secure_filename(f.filename)
-      #   f.save(os.path.join (app.config['UPLOAD_FOLDER'],file))
       if f and allowed_file(f.filename) :
-         # filename = secure_filename(f.filename)
          f.save(os.path.join (app.config['UPLOAD_FOLDER'],f.filename))
          return redirect(url_for('Processing'))
       else :
