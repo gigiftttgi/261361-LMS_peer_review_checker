@@ -335,7 +335,13 @@
         </div>
 
         <div class="container">
-          <div class="dlbtn">Download result</div>
+          <!-- <a
+            class="dlbtn"
+            href="result_test/csv;charset=utf-8"
+            download="result.csv"
+            >Download result</a
+          > -->
+          <div class="dl"></div>
         </div>
 
         <script>
@@ -356,30 +362,41 @@
             }
 
             const dy = document.getElementById(format);
-            console.log(dy);
             dy.style.display = "";
             var url = "date.php";
 
-            function arrayToTable(tableData) {
-              var table = $("<table></table>");
-              $(tableData).each(function (i, rowData) {
-                var row = $("<tr></tr>");
-                $(rowData).each(function (j, cellData) {
-                  row.append($("<td>" + cellData + "</td>"));
-                });
-                table.append(row);
-              });
-              return table;
-            }
+            //   function arrayToTable(tableData) {
+            //     var table = $("<table></table>");
+            //     $(tableData).each(function (i, rowData) {
+            //       var row = $("<tr></tr>");
+            //       $(rowData).each(function (j, cellData) {
+            //         row.append($("<td>" + cellData + "</td>"));
+            //       });
+            //       table.append(row);
+            //     });
+            //     return table;
+            //   }
 
-            $.ajax({
-              type: "GET",
-              url: "uploads/result_test.csv",
-              success: function (data) {
-                $("body").append(arrayToTable(Papa.parse(data).data));
-              },
-            });
+            //   $.ajax({
+            //     type: "GET",
+            //     url: "uploads/result_test.csv",
+            //     success: function (data) {
+            //       $("body").append(arrayToTable(Papa.parse(data).data));
+            //     },
+            //   });
           }
+
+          // var csvContent = "data:result_test/csv;charset=utf-8";
+          const blob = new Blob([csvContent], {
+            type: "data:result_test/csv;charset=utf-8,",
+          });
+          const objUrl = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.setAttribute("href", objUrl);
+          link.setAttribute("download", "Result.csv");
+          link.textContent = "Click to Download";
+
+          document.querySelector(".dl").append(link);
 
           // function csvFileToJSON(file) {
           //   try {

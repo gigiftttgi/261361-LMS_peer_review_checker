@@ -279,7 +279,7 @@ body {
 .tablebd {
   border: 1px solid #e8e8e8;
   width: 860px;
-  height: 400px;
+  height: 425px;
   overflow: auto;
 }
 
@@ -331,8 +331,9 @@ tbody tr:hover {
 
 .dlbtn {
   color: #088f8f;
-  font-size: 20px;
+  font-size: 17px;
   padding: 5px 8px 5px 8px;
+  margin: 5px 0px 0px 0px;
   border-radius: 20px;
   border: 2px solid #088f8f;
   cursor: pointer;
