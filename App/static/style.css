@@ -18,14 +18,15 @@ body {
   margin-top: 0px;
   font-size: 19px;
   text-align: right;
-  background: #161616;
+  background: #ffffff;
+  border-bottom: 2px solid #e8e8e8;
   margin: 0;
   padding: 10px 20px 10px 10px;
 }
 
 .headertxt {
   font-size: 19px;
-  color: #ffffff;
+  color: #088f8f;
 }
 
 /* Step */
@@ -150,7 +151,7 @@ body {
   align-items: center;
   width: 780px;
   height: 330px;
-  border: 4px dashed #088f8f;
+  border: 4px dashed #161616;
   border-radius: 10px;
   font-size: 30px;
 }
@@ -278,7 +279,7 @@ body {
 .tablebd {
   border: 1px solid #e8e8e8;
   width: 860px;
-  height: 450px;
+  height: 400px;
   overflow: auto;
 }
 
@@ -326,4 +327,13 @@ thead {
 }
 tbody tr:hover {
   background: #daf3ff;
+}
+
+.dlbtn {
+  color: #088f8f;
+  font-size: 20px;
+  padding: 5px 8px 5px 8px;
+  border-radius: 20px;
+  border: 2px solid #088f8f;
+  cursor: pointer;
 }

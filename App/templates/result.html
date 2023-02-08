@@ -1,6 +1,11 @@
 <html>
   <head>
     <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <!-- <script src="js/CsvToHtmlTable.js"></script> -->
   </head>
   <body>
     <!-- Header -->
@@ -234,7 +239,7 @@
         <div class="container">
           <div class="result" id="bad">
             <div class="tablebd">
-              <table>
+              <!-- <table class="display_csv_data">
                 <thead>
                   <tr>
                     <th style="border-left: 0px">Name</th>
@@ -319,13 +324,18 @@
                     <td>Griffin</td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
+              <div id="table-container"></div>
             </div>
           </div>
 
           <div class="result" id="ambigious" style="display: none">
             <div class="tablebd">WOWWWWWWWWWWWWW</div>
           </div>
+        </div>
+
+        <div class="container">
+          <div class="dlbtn">Download result</div>
         </div>
 
         <script>
@@ -348,10 +358,106 @@
             const dy = document.getElementById(format);
             console.log(dy);
             dy.style.display = "";
+            var url = "date.php";
 
-            // document.getElementById(format).style.visibility = "visible";
-            // evt.currentTarget.className += "-active";
+            function arrayToTable(tableData) {
+              var table = $("<table></table>");
+              $(tableData).each(function (i, rowData) {
+                var row = $("<tr></tr>");
+                $(rowData).each(function (j, cellData) {
+                  row.append($("<td>" + cellData + "</td>"));
+                });
+                table.append(row);
+              });
+              return table;
+            }
+
+            $.ajax({
+              type: "GET",
+              url: "uploads/result_test.csv",
+              success: function (data) {
+                $("body").append(arrayToTable(Papa.parse(data).data));
+              },
+            });
           }
+
+          // function csvFileToJSON(file) {
+          //   try {
+          //     var reader = new FileReader();
+          //     reader.readAsBinaryString(file);
+          //     reader.onload = function (e) {
+          //       var jsonData = [];
+          //       var headers = [];
+          //       var rows = e.target.result.split("\r\n");
+          //       for (var i = 0; i < rows.length; i++) {
+          //         var cells = rows[i].split(",");
+          //         var rowData = {};
+          //         for (var j = 0; j < cells.length; j++) {
+          //           if (i == 0) {
+          //             var headerName = cells[j].trim();
+          //             headers.push(headerName);
+          //           } else {
+          //             var key = headers[j];
+          //             if (key) {
+          //               rowData[key] = cells[j].trim();
+          //             }
+          //           }
+          //         }
+
+          //         if (i != 0) {
+          //           jsonData.push(rowData);
+          //         }
+          //       }
+
+          //       //displaying the json result into HTML table
+          //       displayJsonToHtmlTable(jsonData);
+          //     };
+          //   } catch (e) {
+          //     console.error(e);
+          //   }
+          // }
+
+          // function displayJsonToHtmlTable(jsonData) {
+          //   var table = document.getElementById("display_csv_data");
+          //   if (jsonData.length > 0) {
+          //     var headers = Object.keys(jsonData[0]);
+          //     var htmlHeader = "<thead><tr>";
+
+          //     for (var i = 0; i < headers.length; i++) {
+          //       htmlHeader += "<th>" + headers[i] + "</th>";
+          //     }
+          //     htmlHeader += "<tr></thead>";
+
+          //     var htmlBody = "<tbody>";
+          //     for (var i = 0; i < jsonData.length; i++) {
+          //       var row = jsonData[i];
+          //       htmlBody += "<tr>";
+          //       for (var j = 0; j < headers.length; j++) {
+          //         var key = headers[j];
+          //         htmlBody += "<td>" + row[key] + "</td>";
+          //       }
+          //       htmlBody += "</tr>";
+          //     }
+          //     htmlBody += "</tbody>";
+          //     table.innerHTML = htmlHeader + htmlBody;
+          //   } else {
+          //     table.innerHTML = "There is no data in CSV";
+          //   }
+          // }
+
+          // CsvToHtmlTable.init({
+          //   csv_path: "uploads/result_test.csv",
+          //   element: "table-container",
+          //   allow_download: true,
+          //   csv_options: {
+          //     separator: ",",
+          //     delimiter: '"',
+          //   },
+          //   datatables_options: {
+          //     paging: false,
+          //   },
+          //   custom_formatting: [[4, format_link]],
+          // });
         </script>
       </div>
     </div>
