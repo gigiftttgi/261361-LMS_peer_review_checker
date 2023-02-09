@@ -1,8 +1,9 @@
 # from flask import Flask,render_template
 
 import os
-from flask import Flask,request, render_template, redirect, url_for
+from flask import Flask,request, render_template, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
+# import pandas as pd
 # from werkzeug.datastructures import  FileStorage
 
 
@@ -11,6 +12,7 @@ ALLOWED_EXTENSIONS = {'csv'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 fileName = ""
+# fileitem = form['fileName']
 	
 @app.route('/')
 def Home():
@@ -21,9 +23,14 @@ def UploadError():
    return render_template("uploadError.html")
 
 @app.route('/processing')
-def Processing():
-
+def Processing():  
    return render_template("process.html")
+
+@app.route('/process')
+def Process():
+   import time
+   time.sleep(200)
+   return jsonify("oh so slow")
 
 @app.route('/processing-error')
 def ProcessError():

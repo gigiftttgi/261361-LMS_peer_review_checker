@@ -204,10 +204,19 @@ body {
 }
 
 /* Processing page*/
+.spinlayout {
+  display: flex;
+  margin: auto;
+  vertical-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 180px;
+}
+
 .loader {
   justify-content: center;
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #088f8f; /* Blue */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #088f8f;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -215,7 +224,6 @@ body {
   text-align: center;
 }
 
-/* Process page */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -224,6 +232,54 @@ body {
     transform: rotate(360deg);
   }
 }
+/* .spinner {
+  margin: 100px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  
+  -webkit-animation: sk-rotate 2.0s infinite linear;
+  animation: sk-rotate 2.0s infinite linear;
+}
+
+.dot1, .dot2 {
+  width: 60%;
+  height: 60%;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  background-color: #333;
+  border-radius: 100%;
+  
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.dot2 {
+  top: auto;
+  bottom: 0;
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(360deg) }}
+@keyframes sk-rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+} */
 
 /* Process error page */
 .trybtn {
@@ -231,8 +287,9 @@ body {
   border: 3px solid #088f8f;
   color: #088f8f;
   border-radius: 15px;
-  padding: 5px 10px 5px 10px;
-  margin: 5px 0px 0px 0px;
+  padding: 5px 15px 5px 15px;
+  margin: 5px 0px 5px 0px;
+  cursor: pointer;
 }
 
 .trybtn:hover {
@@ -335,6 +392,6 @@ tbody tr:hover {
   padding: 5px 8px 5px 8px;
   margin: 5px 0px 0px 0px;
   border-radius: 20px;
-  border: 2px solid #088f8f;
+  /* border: 2px solid #088f8f; */
   cursor: pointer;
 }

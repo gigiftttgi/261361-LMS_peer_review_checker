@@ -8,7 +8,13 @@ python 3.0 up
 How to run
 
 1. cd app
-<!-- 2. python3 -m venv venv -->
+2. python3 -m venv venv
+
+if your pip is under 23.0
+upgrade : pip install --upgrade pip
+then install
+pip3 install pandas | pip install pandas
+
 2. venv\Scripts\Activate.ps1
 3. pip install Flask
 4. py home.py
@@ -19,6 +25,5 @@ ui page
 redict from upload tp processing
 
 undone :
-redirect from processing to result
 processing file to find result
 download result (.csv file)
