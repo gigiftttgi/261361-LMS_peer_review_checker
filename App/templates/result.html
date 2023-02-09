@@ -334,17 +334,18 @@
           </div>
         </div>
 
-        <div class="container">
+        <div class="container" id="dl">
           <!-- <a
             class="dlbtn"
             href="result_test/csv;charset=utf-8"
             download="result.csv"
             >Download result</a
           > -->
-          <div class="dl"></div>
+          <!-- <div class="dlbtn" id="dl"></div> -->
         </div>
 
         <script>
+          //change current table button
           function openCity(evt, format) {
             const br_element = document.getElementById("bdbtn");
             const ar_element = document.getElementById("arbtn");
@@ -387,16 +388,24 @@
           }
 
           // var csvContent = "data:result_test/csv;charset=utf-8";
-          const blob = new Blob([csvContent], {
-            type: "data:result_test/csv;charset=utf-8,",
-          });
-          const objUrl = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.setAttribute("href", objUrl);
-          link.setAttribute("download", "Result.csv");
-          link.textContent = "Click to Download";
+          // const blob = new Blob([csvContent], {
+          //   type: "data:result_test/csv;charset=utf-8,",
+          // });
+          // const objUrl = URL.createObjectURL(blob);
+          // const link = document.createElement("a");
+          // link.setAttribute("href", objUrl);
+          // link.setAttribute("download", "Result.csv");
+          // link.textContent = "Click to Download";
 
-          document.querySelector(".dl").append(link);
+          // document.querySelector(".dl").append(link);
+          data = "data:result_test/csv;charset=utf-8";
+          var exportLink = document.createElement("a");
+          exportLink.setAttribute("href", data);
+          exportLink.setAttribute("download", "result.csv");
+          exportLink.setAttribute("target", "_blank");
+          exportLink.appendChild(document.createTextNode("test.csv"));
+
+          document.getElementById("dl").appendChild(exportLink);
 
           // function csvFileToJSON(file) {
           //   try {

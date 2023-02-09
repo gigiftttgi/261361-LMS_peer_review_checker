@@ -10,6 +10,7 @@ UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'csv'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+fileName = ""
 	
 @app.route('/')
 def Home():
@@ -21,6 +22,7 @@ def UploadError():
 
 @app.route('/processing')
 def Processing():
+
    return render_template("process.html")
 
 @app.route('/processing-error')
@@ -41,6 +43,7 @@ def uploader():
       f = request.files['filename']
       if f and allowed_file(f.filename) :
          f.save(os.path.join (app.config['UPLOAD_FOLDER'],f.filename))
+         fileName = f.filename
          return redirect(url_for('Processing'))
       else :
          return redirect(url_for('UploadError'))
