@@ -248,8 +248,8 @@
                     <th>Review score</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
+                <tbody id="badtable" data-value="{{ value|tojson }}">
+                  <!-- <tr>
                     <td>Kennocha</td>
                     <td>1</td>
                     <td>Karen</td>
@@ -314,9 +314,10 @@
                     <td>1</td>
                     <td>Orianna</td>
                     <td>2</td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
+              <div>{{value}}</div>
               <div id="table-container"></div>
             </div>
           </div>
@@ -337,47 +338,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Kennocha</td>
-                    <td>1</td>
-                    <td>Karen</td>
-                    <td>10</td>
-                    <td>Vida</td>
-                    <td>8</td>
-                    <td>Logan</td>
-                    <td>6</td>
-                  </tr>
-                  <tr>
-                    <td>Piper</td>
-                    <td>1</td>
-                    <td>Ronda</td>
-                    <td>5</td>
-                    <td>Vida</td>
-                    <td>3</td>
-                    <td>Claire</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>Claire</td>
-                    <td>1</td>
-                    <td>Kate</td>
-                    <td>10</td>
-                    <td>Stephanie</td>
-                    <td>8</td>
-                    <td>Harmony</td>
-                    <td>6</td>
-                  </tr>
-                  <tr>
-                    <td>Rose</td>
-                    <td>1</td>
-                    <td>Ginny</td>
-                    <td>10</td>
-                    <td>Brooke</td>
-                    <td>8</td>
-                    <td>Carmen</td>
-                    <td>6</td>
-                  </tr>
-                  <tr>
+                  <!-- <tr>
                     <td>Stephanie</td>
                     <td>1</td>
                     <td>Kennedy</td>
@@ -386,17 +347,7 @@
                     <td>8</td>
                     <td>Sharon</td>
                     <td>6</td>
-                  </tr>
-                  <tr>
-                    <td>Kennocha</td>
-                    <td>1</td>
-                    <td>Jane</td>
-                    <td>9</td>
-                    <td>Vivian</td>
-                    <td>7</td>
-                    <td>Carmen</td>
-                    <td>5</td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
               <div id="table-container"></div>
@@ -415,7 +366,7 @@
           <!-- <div class="dlbtn" id="dl"></div> -->
         </div>
 
-        <script>
+        <script type="text/javascript">
           //change current table button
           function openCity(evt, format) {
             const br_element = document.getElementById("bdbtn");
@@ -435,28 +386,20 @@
 
             const dy = document.getElementById(format);
             dy.style.display = "";
-            var url = "date.php";
 
-            //   function arrayToTable(tableData) {
-            //     var table = $("<table></table>");
-            //     $(tableData).each(function (i, rowData) {
-            //       var row = $("<tr></tr>");
-            //       $(rowData).each(function (j, cellData) {
-            //         row.append($("<td>" + cellData + "</td>"));
-            //       });
-            //       table.append(row);
-            //     });
-            //     return table;
-            //   }
+            // console.log(arr);
 
-            //   $.ajax({
-            //     type: "GET",
-            //     url: "uploads/result_test.csv",
-            //     success: function (data) {
-            //       $("body").append(arrayToTable(Papa.parse(data).data));
-            //     },
-            //   });
+            document.getElementById("table-container").innerHTML =
+              "<p> {{value}}.length </p>";
           }
+
+          // function printTable(format){
+          //   let arr = '{{value}}'
+          //   if(fotmat == 'bad') :
+          //     console.log(arr)
+          // }
+          // let arr = "{{value}}";
+          // alert(arr);
 
           // var csvContent = "data:result_test/csv;charset=utf-8";
           // const blob = new Blob([csvContent], {

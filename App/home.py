@@ -3,6 +3,7 @@
 import os
 from flask import Flask,request, render_template, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
+import pandas as pd
 # import pandas as pd
 # from werkzeug.datastructures import  FileStorage
 
@@ -12,6 +13,7 @@ ALLOWED_EXTENSIONS = {'csv'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 fileName = ""
+ambi = []
 # fileitem = form['fileName']
 	
 @app.route('/')
@@ -28,17 +30,32 @@ def Processing():
 
 @app.route('/process')
 def Process():
-   import time
-   time.sleep(200)
+   # import time
+   # time.sleep(200)
+   df  = pd.read_csv("uploads/test2.csv")
+   for i in range(0,len(df)):
+    # เป็น ambigious
+      if 1 >= abs((abs(df.iloc[i][3] - df.iloc[i][5])) - (abs(df.iloc[i][5] - df.iloc[i][7]))) :
+         ambiatt = []
+         for j in range(8) : 
+            ambiatt.append(df.loc[i][j])
+         ambi.append(ambiatt)
    return jsonify("oh so slow")
+
 
 @app.route('/processing-error')
 def ProcessError():
    return render_template("processError.html")
 
+arr = [['A', 1, 'R', 9, 'T', 7, 'E', 5], ['B', 1, 'W', 7, 'U', 5, 'Y', 3], ['C', 1, 'E', 9, 'I', 7, 'S', 5], ['D', 1, 'W', 9, 'O', 8, 'H', 8]]
+
 @app.route('/result')
 def Result():
-   return render_template("result.html")
+   return render_template("result.html", value = arr)
+
+@app.route('/api/result')
+def apiResult():
+   return jsonify(arr)
 
 def allowed_file(filename):
    return '.' in filename and \
