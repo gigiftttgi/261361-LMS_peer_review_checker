@@ -17,7 +17,7 @@ pip3 install pandas | pip install pandas
 
 2. venv\Scripts\Activate.ps1
 3. pip install Flask
-4. py home.py
+4. python3 home.py
 
 Done :
 upload only file .csv
