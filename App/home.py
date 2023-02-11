@@ -1,7 +1,7 @@
 # from flask import Flask,render_template
 
 import os
-from flask import Flask,request, render_template, redirect, url_for, jsonify
+from flask import Flask,request, render_template, redirect, url_for, jsonify, send_file
 from werkzeug.utils import secure_filename
 import pandas as pd
 # import pandas as pd
@@ -47,15 +47,22 @@ def Process():
 def ProcessError():
    return render_template("processError.html")
 
-arr = [['A', 1, 'R', 9, 'T', 7, 'E', 5], ['B', 1, 'W', 7, 'U', 5, 'Y', 3], ['C', 1, 'E', 9, 'I', 7, 'S', 5], ['D', 1, 'W', 9, 'O', 8, 'H', 8]]
+arrambi = [['A', 1, 'R', 9, 'T', 7, 'E', 5], ['B', 1, 'W', 7, 'U', 5, 'Y', 3], ['C', 1, 'E', 9, 'I', 7, 'S', 5], ['D', 1, 'W', 9, 'O', 8, 'H', 8]]
+arrbad = [['A', 1, 'R', 9], ['A', 1, 'R', 9], ['A', 1, 'R', 9], ['A', 1, 'R', 9]]
+
 
 @app.route('/result')
 def Result():
-   return render_template("result.html", value = arr)
+   return render_template("result.html", ambiresult = arrambi, badresult = arrbad)
 
 @app.route('/api/result')
-def apiResult():
-   return jsonify(arr)
+def dowunloadFile():
+   try:
+	   return send_file('/var/www/PythonProgramming/PythonProgramming/static/images/python.jpg', attachment_filename='python.jpg')
+   except FileNotFoundError:
+        abort(404)
+
+
 
 def allowed_file(filename):
    return '.' in filename and \

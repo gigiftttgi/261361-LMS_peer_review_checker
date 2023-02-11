@@ -232,54 +232,6 @@ body {
     transform: rotate(360deg);
   }
 }
-/* .spinner {
-  margin: 100px auto;
-  width: 40px;
-  height: 40px;
-  position: relative;
-  text-align: center;
-  
-  -webkit-animation: sk-rotate 2.0s infinite linear;
-  animation: sk-rotate 2.0s infinite linear;
-}
-
-.dot1, .dot2 {
-  width: 60%;
-  height: 60%;
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  background-color: #333;
-  border-radius: 100%;
-  
-  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-  animation: sk-bounce 2.0s infinite ease-in-out;
-}
-
-.dot2 {
-  top: auto;
-  bottom: 0;
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
-
-@-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(360deg) }}
-@keyframes sk-rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
-
-@-webkit-keyframes sk-bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes sk-bounce {
-  0%, 100% { 
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 50% { 
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
-  }
-} */
 
 /* Process error page */
 .trybtn {
@@ -344,12 +296,6 @@ table {
   width: 100%;
 }
 
-/* .headtb {
-  position: sticky;
-  margin: 5px 5px 5px 5px;
-  color: #e8e8e8; 
-} */
-
 thead tr th {
   position: sticky;
   top: 0;
@@ -361,7 +307,6 @@ table {
 
 th {
   padding: 12px;
-  /* border-left: 1px solid #161616; */
   border-bottom: 2px solid #e8e8e8;
   background: #ffffff;
   color: #088f8f;
@@ -373,6 +318,7 @@ th {
 
 table td {
   text-align: center;
+  color: #161616;
   padding: 8px;
 }
 tbody tr {
@@ -380,7 +326,7 @@ tbody tr {
 }
 thead {
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.85);
+  color: #161616;
 }
 tbody tr:hover {
   background: #daf3ff;
@@ -392,6 +338,5 @@ tbody tr:hover {
   padding: 5px 8px 5px 8px;
   margin: 5px 0px 0px 0px;
   border-radius: 20px;
-  /* border: 2px solid #088f8f; */
   cursor: pointer;
 }
