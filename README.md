@@ -23,7 +23,7 @@ Done :
 upload only file .csv
 ui page
 redict from upload tp processing
-
-undone :
 processing file to find result
 download result (.csv file)
+
+bug :
