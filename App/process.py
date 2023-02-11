@@ -10,35 +10,63 @@ import pandas as pd
     # fn = os.path.basename(fileitem.filename)
 
     # df  = pd.read_csv("/upload/" + fn )
-df  = pd.read_csv("uploads/input_test.csv")
+df  = pd.read_csv("App/uploads/input_test.csv")
+
+dfd = df.drop(['Name','Assignment','Name reviewer1','Name reviewer2','Name reviewer3'], axis='columns')
+# print(dfd)
 ambi = []
 sus = []
+bad = []
 
     
-# for i in range(0,len(df)):
-#     dfS = df.sort_values(by=i, axis=1, ascending=False)    #sort by row
-#     if 1 <= abs((dfS.iloc[i][0] - dfS.iloc[i][1]) - (dfS.iloc[i][1] - dfS.iloc[i][2])) :    #find ambigious
-#         ambi.append(df.iloc[i])
-#     elif (dfS.iloc[i][0] - dfS.iloc[i][1]) + (dfS.iloc[i][1] - dfS.iloc[i][2]) >=3:     #still improving
-#         sus.append(df.iloc[i])      #find sus
+for i in range(0,len(dfd)):
+    # print(dfd)
+    # dfS = dfd.sort_values(i,axis=0, ascending=False)    #sort by row)
+    dfS = []
+    dfS.append(dfd.iloc[i][0])
+    dfS.append(dfd.iloc[i][1])
+    dfS.append(dfd.iloc[i][2])
+    dfS.sort(reverse=True)
+    # print(dfS)
+    a = dfS[0] - dfS[1]
+    b = dfS[1] - dfS[2]
 
+    # print(a)
+    # print(b)   
 
-# for i in range(1,len(df)):
-#     # dfS = df.sort_values(by=i, axis=1, ascending=False)    #sort by row
-#     if 1 <= abs(abs(df.iloc[i][4] - df.iloc[i][6]) - abs(df.iloc[i][6] - df.iloc[i][8])) :    #find ambigious
-#         ambi.append(df.iloc[i])
-#     elif (df.iloc[i][4] - df.iloc[i][6]) + (df.iloc[i][6] - df.iloc[i][8]) >=3:     #still improving
-#         sus.append(df.iloc[i])      #find sus
-
-print(len(df))
-print(df.iloc[0][4])
-
-# print("ambi : " + ambi)
-# print("sus : " + sus)
     
-    #write csv
-# ambi.to_csv('ambigious.csv', index=False, header=False)
-# sus.to_csv('suspect.csv', index=False, header=False)
+    if 1 >= abs(a-b) >= 0:
+        if dfS[0] - dfS[1] != 0 and  dfS[1] - dfS[2] != 0:   #find ambigious
+            ambi.append(df.iloc[i])
+    elif (a+b) >=3:     #still improving
+        sus.append(df.iloc[i])      #find sus
+        if a>b :
+            bad.append(dfS[0])
+        elif b>a:
+            bad.append(dfS[2])
+
+
+
+
+
+
+
+
+
+# print(len(df))
+# print(df.iloc[0][4])
+
+print("ambi : " , ambi)
+print()
+print("sus : " , sus)
+print()
+print("bad : " , bad)
+
+ambi = pd.DataFrame(ambi)
+sus = pd.DataFrame(sus)
+#write csv
+ambi.to_csv('ambigious.csv', index=False)
+sus.to_csv('suspect.csv', index=False)
 
      
    # open read and write the file into the server
