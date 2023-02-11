@@ -4,12 +4,13 @@ import pandas as pd
  
 # fileitem = form['upload/input_test']
  
-# check if the file has been uploaded
+# # check if the file has been uploaded
 # if fileitem.filename:
-    # strip the leading path from the file name
-    # fn = os.path.basename(fileitem.filename)
+#     # strip the leading path from the file name
+#     fn = os.path.basename(fileitem.filename)
+#     print(fn)
+#     df  = pd.read_csv("/upload/" + fn )
 
-    # df  = pd.read_csv("/upload/" + fn )
 df  = pd.read_csv("App/uploads/input_test.csv")
 
 dfd = df.drop(['Name','Assignment','Name reviewer1','Name reviewer2','Name reviewer3'], axis='columns')
@@ -20,8 +21,7 @@ bad = []
 
     
 for i in range(0,len(dfd)):
-    # print(dfd)
-    # dfS = dfd.sort_values(i,axis=0, ascending=False)    #sort by row)
+    #sort
     dfS = []
     dfS.append(dfd.iloc[i][0])
     dfS.append(dfd.iloc[i][1])
@@ -47,26 +47,54 @@ for i in range(0,len(dfd)):
 
 
 
-
-
-
-
-
-
 # print(len(df))
 # print(df.iloc[0][4])
 
-print("ambi : " , ambi)
-print()
-print("sus : " , sus)
-print()
-print("bad : " , bad)
+# print("ambi : " , ambi)
+# print()
+# print("sus : " , sus)
+# print()
+# print("bad : " , bad)
+
 
 ambi = pd.DataFrame(ambi)
 sus = pd.DataFrame(sus)
 #write csv
-ambi.to_csv('ambigious.csv', index=False)
 sus.to_csv('suspect.csv', index=False)
+ambi.to_csv('ambigious.csv', index=False)
+
+#read sus.csv
+sus  = pd.read_csv("suspect.csv")
+
+#Map bad from sus.csv
+name = []
+asn = []
+bname = []
+bscore = []
+for i in range(len(sus)):
+    name.append(sus.iloc[i]['Name'])
+    asn.append(sus.iloc[i]['Assignment'])
+    if(sus.iloc[i]['Review score3'] == bad[i] ):
+        bname.append(sus.iloc[i]['Name reviewer3'])
+        bscore.append(sus.iloc[i]['Review score3'])
+    elif(sus.iloc[i]['Review score2'] == bad[i]):
+        bname.append(sus.iloc[i]['Name reviewer2'])
+        bscore.append(sus.iloc[i]['Review score2'])  
+    elif(sus.iloc[i]['Review score1'] == bad[i]):
+        bname.append(sus.iloc[i]['Name reviewer1'])
+        bscore.append(sus.iloc[i]['Review score1'])
+
+
+bad_review = {
+    'Name' : name,
+    'Assignment' : asn,
+    'Bad Reviewer' : bname,
+    'Score' : bscore
+}
+
+print(bad_review)
+bad = pd.DataFrame(bad_review)
+bad.to_csv('bad_reviewer.csv', index=False)
 
      
    # open read and write the file into the server
