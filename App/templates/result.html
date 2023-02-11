@@ -248,7 +248,7 @@
                     <th>Review score</th>
                   </tr>
                 </thead>
-                <tbody id="badtable" data-value="{{ value|tojson }}">
+                <tbody id="badtable" data-value="{{ badresult }}">
                   <!-- <tr>
                     <td>Kennocha</td>
                     <td>1</td>
@@ -317,7 +317,6 @@
                   </tr> -->
                 </tbody>
               </table>
-              <div>{{value}}</div>
               <div id="table-container"></div>
             </div>
           </div>
@@ -337,7 +336,7 @@
                     <th>Review score</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="ambitable" data-value="{{ ambiresult }}">
                   <!-- <tr>
                     <td>Stephanie</td>
                     <td>1</td>
@@ -386,118 +385,39 @@
 
             const dy = document.getElementById(format);
             dy.style.display = "";
-
-            // console.log(arr);
-
-            document.getElementById("table-container").innerHTML =
-              "<p> {{value}}.length </p>";
           }
 
-          // function printTable(format){
-          //   let arr = '{{value}}'
-          //   if(fotmat == 'bad') :
-          //     console.log(arr)
-          // }
-          // let arr = "{{value}}";
-          // alert(arr);
+          //print data in ambigious able
+          var ambidata = document.getElementById("ambitable").dataset.value;
+          ambidata = ambidata.replace(/[.',|[\]]| /g, "");
+          var ambitable = [];
+          var i = 0;
+          while (i < ambidata.length) {
+            ambitable += "<tr>";
+            for (j = 0; j < 8; j++) {
+              ambitable += "<td>" + ambidata[i] + "</td>";
+              i++;
+            }
+            ambitable += "</tr>";
+          }
+          console.log(ambitable);
+          document.getElementById("ambitable").innerHTML = ambitable;
 
-          // var csvContent = "data:result_test/csv;charset=utf-8";
-          // const blob = new Blob([csvContent], {
-          //   type: "data:result_test/csv;charset=utf-8,",
-          // });
-          // const objUrl = URL.createObjectURL(blob);
-          // const link = document.createElement("a");
-          // link.setAttribute("href", objUrl);
-          // link.setAttribute("download", "Result.csv");
-          // link.textContent = "Click to Download";
-
-          // document.querySelector(".dl").append(link);
-          // data = "data:result_test/csv;charset=utf-8";
-          // var exportLink = document.createElement("a");
-          // exportLink.setAttribute("href", data);
-          // exportLink.setAttribute("download", "result.csv");
-          // exportLink.setAttribute("target", "_blank");
-          // exportLink.appendChild(document.createTextNode("test.csv"));
-
-          // document.getElementById("dl").appendChild(exportLink);
-
-          // function csvFileToJSON(file) {
-          //   try {
-          //     var reader = new FileReader();
-          //     reader.readAsBinaryString(file);
-          //     reader.onload = function (e) {
-          //       var jsonData = [];
-          //       var headers = [];
-          //       var rows = e.target.result.split("\r\n");
-          //       for (var i = 0; i < rows.length; i++) {
-          //         var cells = rows[i].split(",");
-          //         var rowData = {};
-          //         for (var j = 0; j < cells.length; j++) {
-          //           if (i == 0) {
-          //             var headerName = cells[j].trim();
-          //             headers.push(headerName);
-          //           } else {
-          //             var key = headers[j];
-          //             if (key) {
-          //               rowData[key] = cells[j].trim();
-          //             }
-          //           }
-          //         }
-
-          //         if (i != 0) {
-          //           jsonData.push(rowData);
-          //         }
-          //       }
-
-          //       //displaying the json result into HTML table
-          //       displayJsonToHtmlTable(jsonData);
-          //     };
-          //   } catch (e) {
-          //     console.error(e);
-          //   }
-          // }
-
-          // function displayJsonToHtmlTable(jsonData) {
-          //   var table = document.getElementById("display_csv_data");
-          //   if (jsonData.length > 0) {
-          //     var headers = Object.keys(jsonData[0]);
-          //     var htmlHeader = "<thead><tr>";
-
-          //     for (var i = 0; i < headers.length; i++) {
-          //       htmlHeader += "<th>" + headers[i] + "</th>";
-          //     }
-          //     htmlHeader += "<tr></thead>";
-
-          //     var htmlBody = "<tbody>";
-          //     for (var i = 0; i < jsonData.length; i++) {
-          //       var row = jsonData[i];
-          //       htmlBody += "<tr>";
-          //       for (var j = 0; j < headers.length; j++) {
-          //         var key = headers[j];
-          //         htmlBody += "<td>" + row[key] + "</td>";
-          //       }
-          //       htmlBody += "</tr>";
-          //     }
-          //     htmlBody += "</tbody>";
-          //     table.innerHTML = htmlHeader + htmlBody;
-          //   } else {
-          //     table.innerHTML = "There is no data in CSV";
-          //   }
-          // }
-
-          // CsvToHtmlTable.init({
-          //   csv_path: "uploads/result_test.csv",
-          //   element: "table-container",
-          //   allow_download: true,
-          //   csv_options: {
-          //     separator: ",",
-          //     delimiter: '"',
-          //   },
-          //   datatables_options: {
-          //     paging: false,
-          //   },
-          //   custom_formatting: [[4, format_link]],
-          // });
+          //print data in bad able
+          var baddata = document.getElementById("badtable").dataset.value;
+          baddata = baddata.replace(/[.',|[\]]| /g, "");
+          var badtable = [];
+          var i = 0;
+          while (i < baddata.length) {
+            badtable += "<tr>";
+            for (j = 0; j < 4; j++) {
+              badtable += "<td>" + baddata[i] + "</td>";
+              i++;
+            }
+            badtable += "</tr>";
+          }
+          console.log(badtable);
+          document.getElementById("badtable").innerHTML = badtable;
         </script>
       </div>
     </div>
