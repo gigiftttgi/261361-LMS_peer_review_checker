@@ -7,17 +7,17 @@ python 3.0 up
 
 How to run
 
-1. cd app
-2. python3 -m venv venv
+1. _cd app_
+2. _python3 -m venv venv_
 
 if your pip is under 23.0
-upgrade : pip install --upgrade pip
+upgrade : _pip install --upgrade pip_
 then install
-pip3 install pandas | pip install pandas
+_pip3 install pandas | pip install pandas_
 
-2. venv\Scripts\Activate.ps1
-3. pip install Flask
-4. python3 home.py
+2. _venv\Scripts\Activate.ps1_
+3. _pip install Flask_
+4. _python3 home.py_
 
 Done :
 upload only file .csv
