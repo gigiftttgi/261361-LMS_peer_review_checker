@@ -54,7 +54,7 @@ for i in range(0,len(dfd)):
 
 
 print("ambi")
-print(ambi)
+print(ambi[0])
 
 ambi = pd.DataFrame(ambi)
 sus = pd.DataFrame(sus)
@@ -99,7 +99,8 @@ bad = pd.DataFrame(bad_review)
 print( "bad")
 print( bad.to_string(header=None, index=False))
 b = bad.to_string(header=None, index=False)
-b = b.replace("\n"," ")
+b = b.replace("\n",",")
+b = b.replace(" ",",")
 print(b)
 
 bad.to_csv('bad_reviewer.csv', index=False)

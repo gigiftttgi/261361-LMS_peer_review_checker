@@ -317,13 +317,17 @@
 
           //print data in ambigious table
           var ambidata = document.getElementById("ambitable").dataset.value;
-          ambidata = ambidata.replace(/[.',|[\]]| /g, "");
+          console.log(ambidata);
+          ambidata = ambidata.replace(/[.'"|[\]]| /g, "");
+          var data = ambidata.split(",");
+          console.log(data);
+          console.log(data[0]);
           var ambitable = [];
           var i = 0;
-          while (i < ambidata.length) {
+          while (i < data.length) {
             ambitable += "<tr>";
             for (j = 0; j < 8; j++) {
-              ambitable += "<td>" + ambidata[i] + "</td>";
+              ambitable += "<td>" + data[i] + "</td>";
               i++;
             }
             ambitable += "</tr>";
@@ -332,13 +336,14 @@
 
           //print data in bad table
           var baddata = document.getElementById("badtable").dataset.value;
-          baddata = baddata.replace(/[.',|[\]]| /g, "");
+          baddata = baddata.replace(/[.'"|[\]]| /g, "");
+          var data = baddata.split(",");
           var badtable = [];
           var i = 0;
-          while (i < baddata.length) {
+          while (i < data.length) {
             badtable += "<tr>";
             for (j = 0; j < 4; j++) {
-              badtable += "<td>" + baddata[i] + "</td>";
+              badtable += "<td>" + data[i] + "</td>";
               i++;
             }
             badtable += "</tr>";

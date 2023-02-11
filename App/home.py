@@ -1,5 +1,6 @@
 # from flask import Flask,render_template
 
+import json
 import os
 from flask import Flask,request, render_template, redirect, url_for, jsonify, send_file
 from werkzeug.utils import secure_filename
@@ -39,7 +40,6 @@ def Process():
 
    att = ['Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
    in_att = list(df.columns)
-   print(in_att)
 
    if (att == in_att) :
       dfd = df.drop(['Name','Assignment','Name reviewer1','Name reviewer2','Name reviewer3'], axis='columns')
@@ -67,9 +67,11 @@ def Process():
       ambi = pd.DataFrame(ambi)
       sus = pd.DataFrame(sus)
 
+
       # list of ambigious review to display in the table. 
       global ambilist 
-      ambilist = ambi.to_string(header=None, index=False).replace("\n","")
+      ambilist = ambi.to_json(orient="values")
+      print(ambilist)
 
       #write csv
       sus.to_csv('suspect.csv', index=False)
@@ -107,7 +109,7 @@ def Process():
 
       # list of bad reviewers to display in the table. 
       global badlist
-      badlist = bad.to_string(header=None, index=False).replace("\n","")
+      badlist = bad.to_json(orient="values")
 
       bad.to_csv('bad_reviewer.csv', index=False)
 
