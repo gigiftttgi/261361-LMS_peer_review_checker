@@ -4,16 +4,16 @@ import os
 from flask import Flask,request, render_template, redirect, url_for, jsonify, send_file
 from werkzeug.utils import secure_filename
 import pandas as pd
-# import pandas as pd
-# from werkzeug.datastructures import  FileStorage
 
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'csv'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-fileName = ""
-ambi = []
+global ambilist
+global badlist
+global fname
+
 # fileitem = form['fileName']
 	
 @app.route('/')
@@ -30,38 +30,101 @@ def Processing():
 
 @app.route('/process')
 def Process():
-   # import time
-   # time.sleep(200)
-   df  = pd.read_csv("uploads/test2.csv")
-   for i in range(0,len(df)):
-    # เป็น ambigious
-      if 1 >= abs((abs(df.iloc[i][3] - df.iloc[i][5])) - (abs(df.iloc[i][5] - df.iloc[i][7]))) :
-         ambiatt = []
-         for j in range(8) : 
-            ambiatt.append(df.loc[i][j])
-         ambi.append(ambiatt)
-   return jsonify("oh so slow")
+
+   df  = pd.read_csv("uploads/input.csv")
+
+   ambi = []
+   sus = []
+   bad = []
+
+   att = ['Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
+   in_att = list(df.columns)
+   print(in_att)
+
+   if (att == in_att) :
+      dfd = df.drop(['Name','Assignment','Name reviewer1','Name reviewer2','Name reviewer3'], axis='columns')
+      for i in range(0,len(dfd)):
+      #sort
+         dfS = []
+         dfS.append(dfd.iloc[i][0])
+         dfS.append(dfd.iloc[i][1])
+         dfS.append(dfd.iloc[i][2])
+         dfS.sort(reverse=True)
+
+         a = dfS[0] - dfS[1]
+         b = dfS[1] - dfS[2]
+    
+         if 1 >= abs(a-b) >= 0:
+            if dfS[0] - dfS[1] != 0 and  dfS[1] - dfS[2] != 0:   #find ambigious
+               ambi.append(df.iloc[i])
+         elif (a+b) >=3:     #still improving
+            sus.append(df.iloc[i])      #find sus
+            if a>b :
+               bad.append(dfS[0])
+            elif b>a:
+               bad.append(dfS[2])
+
+      ambi = pd.DataFrame(ambi)
+      sus = pd.DataFrame(sus)
+
+      # list of ambigious review to display in the table. 
+      global ambilist 
+      ambilist = ambi.to_string(header=None, index=False).replace("\n","")
+
+      #write csv
+      sus.to_csv('suspect.csv', index=False)
+      ambi.to_csv('ambigious.csv', index=False)
+
+      #read sus.csv
+      sus  = pd.read_csv("suspect.csv")
+
+      #Map bad from sus.csv
+      name = []
+      asn = []
+      bname = []
+      bscore = []
+      for i in range(len(sus)):
+         name.append(sus.iloc[i]['Name'])
+         asn.append(sus.iloc[i]['Assignment'])
+         if(sus.iloc[i]['Review score3'] == bad[i] ):
+            bname.append(sus.iloc[i]['Name reviewer3'])
+            bscore.append(sus.iloc[i]['Review score3'])
+         elif(sus.iloc[i]['Review score2'] == bad[i]):
+            bname.append(sus.iloc[i]['Name reviewer2'])
+            bscore.append(sus.iloc[i]['Review score2'])  
+         elif(sus.iloc[i]['Review score1'] == bad[i]):
+            bname.append(sus.iloc[i]['Name reviewer1'])
+            bscore.append(sus.iloc[i]['Review score1'])
+
+      bad_review = {
+         'Name' : name,
+         'Assignment' : asn,
+         'Bad Reviewer' : bname,
+         'Score' : bscore
+      }
+
+      bad = pd.DataFrame(bad_review)
+
+      # list of bad reviewers to display in the table. 
+      global badlist
+      badlist = bad.to_string(header=None, index=False).replace("\n","")
+
+      bad.to_csv('bad_reviewer.csv', index=False)
+
+      return jsonify("processing")
+   else :
+      return jsonify("process-error")
 
 
 @app.route('/processing-error')
 def ProcessError():
    return render_template("processError.html")
 
-arrambi = [['A', 1, 'R', 9, 'T', 7, 'E', 5], ['B', 1, 'W', 7, 'U', 5, 'Y', 3], ['C', 1, 'E', 9, 'I', 7, 'S', 5], ['D', 1, 'W', 9, 'O', 8, 'H', 8]]
-arrbad = [['A', 1, 'R', 9], ['A', 1, 'R', 9], ['A', 1, 'R', 9], ['A', 1, 'R', 9]]
-
-
 @app.route('/result')
 def Result():
-   return render_template("result.html", ambiresult = arrambi, badresult = arrbad)
-
-@app.route('/api/result')
-def dowunloadFile():
-   try:
-	   return send_file('/var/www/PythonProgramming/PythonProgramming/static/images/python.jpg', attachment_filename='python.jpg')
-   except FileNotFoundError:
-        abort(404)
-
+   global badlist
+   global ambilist
+   return render_template("result.html", ambiresult = ambilist, badresult = badlist)
 
 
 def allowed_file(filename):
@@ -73,8 +136,7 @@ def uploader():
     if request.method == 'POST':
       f = request.files['filename']
       if f and allowed_file(f.filename) :
-         f.save(os.path.join (app.config['UPLOAD_FOLDER'],f.filename))
-         fileName = f.filename
+         f.save(os.path.join (app.config['UPLOAD_FOLDER'],"input.csv"))
          return redirect(url_for('Processing'))
       else :
          return redirect(url_for('UploadError'))

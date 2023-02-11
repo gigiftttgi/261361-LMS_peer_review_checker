@@ -10,32 +10,35 @@
   <body>
     <!-- Header -->
     <div class="header">
-      <div class="headertxt">
-        LMS Peer Review Checker
-        <svg
-          width="23"
-          height="23"
-          viewBox="0 0 23 23"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M16.6735 3.53357C12.2737 0.676341 6.39079 1.9268 3.53356 6.32654C0.676341 10.7263 1.9268 16.6092 6.32654 19.4664C7.99732 20.5515 9.88198 21.0441 11.7336 20.9969C14.758 20.9198 17.6942 19.4024 19.4664 16.6735C21.3395 13.7892 21.475 11.025 20.525 8.175"
-            stroke="#088f8f"
-            stroke-width="2.2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M6.75 10.7868L10.3121 14.3489L19.811 4.84998"
-            stroke="#088f8f"
-            stroke-width="2.2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
+      <a href="/" style="text-decoration: none">
+        <div class="headertxt">
+          LMS Peer Review Checker
+          <svg
+            width="23"
+            height="23"
+            viewBox="0 0 23 23"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16.6735 3.53357C12.2737 0.676341 6.39079 1.9268 3.53356 6.32654C0.676341 10.7263 1.9268 16.6092 6.32654 19.4664C7.99732 20.5515 9.88198 21.0441 11.7336 20.9969C14.758 20.9198 17.6942 19.4024 19.4664 16.6735C21.3395 13.7892 21.475 11.025 20.525 8.175"
+              stroke="#088f8f"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M6.75 10.7868L10.3121 14.3489L19.811 4.84998"
+              stroke="#088f8f"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </a>
     </div>
+
     <!-- ส่วนบอกstep -->
     <div class="menu">
       <div class="step">
@@ -215,8 +218,10 @@
       </div>
     </div>
 
+    <!-- ส่วนbody -->
     <div class="body">
       <div class="borderout">
+        <!-- เลือกตาราง -->
         <div class="container">
           <div class="selectrw">
             <button
@@ -236,6 +241,7 @@
           </div>
         </div>
 
+        <!-- แสดงตาราง -->
         <div class="container">
           <div class="result" id="bad">
             <div class="tablebd">
@@ -248,74 +254,7 @@
                     <th>Review score</th>
                   </tr>
                 </thead>
-                <tbody id="badtable" data-value="{{ badresult }}">
-                  <!-- <tr>
-                    <td>Kennocha</td>
-                    <td>1</td>
-                    <td>Karen</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>Amada</td>
-                    <td>1</td>
-                    <td>Vida</td>
-                    <td>10</td>
-                  </tr>
-                  <tr>
-                    <td>Griffin</td>
-                    <td>1</td>
-                    <td>Trixie</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>Jamille</td>
-                    <td>1</td>
-                    <td>Lois</td>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <td>Victoria</td>
-                    <td>1</td>
-                    <td>Mia</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>Darlene</td>
-                    <td>1</td>
-                    <td>Milada</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>Amada</td>
-                    <td>1</td>
-                    <td>Vida</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>Elle</td>
-                    <td>1</td>
-                    <td>Naomi</td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>Jamille</td>
-                    <td>1</td>
-                    <td>Lois</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>Mabel</td>
-                    <td>1</td>
-                    <td>Naomi</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>Charlotte</td>
-                    <td>1</td>
-                    <td>Orianna</td>
-                    <td>2</td>
-                  </tr> -->
-                </tbody>
+                <tbody id="badtable" data-value="{{ badresult }}"></tbody>
               </table>
               <div id="table-container"></div>
             </div>
@@ -336,18 +275,7 @@
                     <th>Review score</th>
                   </tr>
                 </thead>
-                <tbody id="ambitable" data-value="{{ ambiresult }}">
-                  <!-- <tr>
-                    <td>Stephanie</td>
-                    <td>1</td>
-                    <td>Kennedy</td>
-                    <td>10</td>
-                    <td>Liona</td>
-                    <td>8</td>
-                    <td>Sharon</td>
-                    <td>6</td>
-                  </tr> -->
-                </tbody>
+                <tbody id="ambitable" data-value="{{ ambiresult }}"></tbody>
               </table>
               <div id="table-container"></div>
             </div>
@@ -357,7 +285,7 @@
         <div class="container" id="dl">
           <a
             class="dlbtn"
-            href="data:result_test/csv;charset=utf-8"
+            href="data:ambigious/csv;charset=utf-8"
             download="result.csv"
             style="text-decoration: none"
             >Download result</a
@@ -387,7 +315,7 @@
             dy.style.display = "";
           }
 
-          //print data in ambigious able
+          //print data in ambigious table
           var ambidata = document.getElementById("ambitable").dataset.value;
           ambidata = ambidata.replace(/[.',|[\]]| /g, "");
           var ambitable = [];
@@ -400,10 +328,9 @@
             }
             ambitable += "</tr>";
           }
-          console.log(ambitable);
           document.getElementById("ambitable").innerHTML = ambitable;
 
-          //print data in bad able
+          //print data in bad table
           var baddata = document.getElementById("badtable").dataset.value;
           baddata = baddata.replace(/[.',|[\]]| /g, "");
           var badtable = [];
@@ -416,7 +343,6 @@
             }
             badtable += "</tr>";
           }
-          console.log(badtable);
           document.getElementById("badtable").innerHTML = badtable;
         </script>
       </div>

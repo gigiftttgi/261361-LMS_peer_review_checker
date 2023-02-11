@@ -11,9 +11,16 @@ import pandas as pd
 #     print(fn)
 #     df  = pd.read_csv("/upload/" + fn )
 
-df  = pd.read_csv("App/uploads/input_test.csv")
+df  = pd.read_csv("uploads/input.csv")
+dff  = pd.read_csv("uploads/test2.csv")
 
 dfd = df.drop(['Name','Assignment','Name reviewer1','Name reviewer2','Name reviewer3'], axis='columns')
+
+# l1 = ['Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
+# l2 = list(dff.columns)
+# print (list(df.columns))
+# print (list(dff.columns))
+# print( l1 == l2)
 # print(dfd)
 ambi = []
 sus = []
@@ -37,7 +44,7 @@ for i in range(0,len(dfd)):
     
     if 1 >= abs(a-b) >= 0:
         if dfS[0] - dfS[1] != 0 and  dfS[1] - dfS[2] != 0:   #find ambigious
-            ambi.append(df.iloc[i])
+            ambi.append(df.iloc[i].values)
     elif (a+b) >=3:     #still improving
         sus.append(df.iloc[i])      #find sus
         if a>b :
@@ -46,19 +53,15 @@ for i in range(0,len(dfd)):
             bad.append(dfS[2])
 
 
-
-# print(len(df))
-# print(df.iloc[0][4])
-
-# print("ambi : " , ambi)
-# print()
-# print("sus : " , sus)
-# print()
-# print("bad : " , bad)
-
+print("ambi")
+print(ambi)
 
 ambi = pd.DataFrame(ambi)
 sus = pd.DataFrame(sus)
+
+print("ambi")
+print(ambi.to_string(index=False, index_names=False))
+
 #write csv
 sus.to_csv('suspect.csv', index=False)
 ambi.to_csv('ambigious.csv', index=False)
@@ -92,8 +95,13 @@ bad_review = {
     'Score' : bscore
 }
 
-print(bad_review)
 bad = pd.DataFrame(bad_review)
+print( "bad")
+print( bad.to_string(header=None, index=False))
+b = bad.to_string(header=None, index=False)
+b = b.replace("\n"," ")
+print(b)
+
 bad.to_csv('bad_reviewer.csv', index=False)
 
      
