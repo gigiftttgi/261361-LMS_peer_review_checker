@@ -37,6 +37,8 @@ def Process():
    ambi = []
    sus = []
    bad = []
+   global badlist
+   global ambilist 
 
    att = ['Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
    in_att = list(df.columns)
@@ -69,17 +71,23 @@ def Process():
 
 
       # list of ambigious review to display in the table. 
-      global ambilist 
-      ambilist = ambi.to_json(orient="values")
-      print(ambilist)
+      if(ambi.empty):
+         ambilist = ""
+      else :
+         ambilist = ambi.to_json(orient="values")
 
       #write csv
-      sus.to_csv('suspect.csv', index=False)
       ambi.to_csv('ambigious.csv', index=False)
+      if(sus.empty):
+         badlist = ""
+         return jsonify("processing")
+      
+      sus.to_csv('suspect.csv', index=False)
 
       #read sus.csv
       sus  = pd.read_csv("suspect.csv")
 
+      print(sus)
       #Map bad from sus.csv
       name = []
       asn = []
@@ -108,7 +116,6 @@ def Process():
       bad = pd.DataFrame(bad_review)
 
       # list of bad reviewers to display in the table. 
-      global badlist
       badlist = bad.to_json(orient="values")
 
       bad.to_csv('bad_reviewer.csv', index=False)
@@ -116,7 +123,7 @@ def Process():
       return jsonify("processing")
    else :
       return jsonify("process-error")
-
+   
 
 @app.route('/processing-error')
 def ProcessError():

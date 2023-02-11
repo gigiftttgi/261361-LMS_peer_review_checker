@@ -283,13 +283,17 @@
         </div>
 
         <div class="container" id="dl">
-          <a
+          <!-- <a
             class="dlbtn"
             href="data:ambigious/csv;charset=utf-8"
             download="result.csv"
             style="text-decoration: none"
             >Download result</a
-          >
+          > -->
+
+          <div id="baddownload" class="dlbtn"></div>
+
+          <div id="ambidownload" class="dlbtn" style="display: none"></div>
           <!-- <div class="dlbtn" id="dl"></div> -->
         </div>
 
@@ -301,9 +305,13 @@
             if (format == "bad") {
               br_element.className = "selctbtn-active";
               ar_element.className = "selctbtn";
+              document.getElementById("ambidownload").style.display = "none";
+              document.getElementById("baddownload").style.display = "";
             } else {
               br_element.className = "selctbtn";
               ar_element.className = "selctbtn-active";
+              document.getElementById("ambidownload").style.display = "";
+              document.getElementById("baddownload").style.display = "none";
             }
 
             const result = document.getElementsByClassName("result");
@@ -318,37 +326,71 @@
           //print data in ambigious table
           var ambidata = document.getElementById("ambitable").dataset.value;
           console.log(ambidata);
-          ambidata = ambidata.replace(/[.'"|[\]]| /g, "");
-          var data = ambidata.split(",");
-          console.log(data);
-          console.log(data[0]);
-          var ambitable = [];
-          var i = 0;
-          while (i < data.length) {
-            ambitable += "<tr>";
-            for (j = 0; j < 8; j++) {
-              ambitable += "<td>" + data[i] + "</td>";
-              i++;
+          if (ambidata != "") {
+            ambidata = ambidata.replace(/[.'"|[\]]|/g, "");
+            var data = ambidata.split(",");
+            var csvambi = [
+              "Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3",
+            ];
+            var ambitable = [];
+            var i = 0;
+            while (i < data.length) {
+              ambitable += "<tr>";
+              var rowambi = [];
+              for (j = 0; j < 8; j++) {
+                ambitable += "<td>" + data[i] + "</td>";
+                rowambi.push(data[i]);
+                i++;
+              }
+              csvambi.push(rowambi.join(","));
+              ambitable += "</tr>";
             }
-            ambitable += "</tr>";
+            csvambi = csvambi.join("\n");
+            console.log(csvambi);
+            linkdownload(csvambi, "ambi");
+            document.getElementById("ambitable").innerHTML = ambitable;
           }
-          document.getElementById("ambitable").innerHTML = ambitable;
 
           //print data in bad table
           var baddata = document.getElementById("badtable").dataset.value;
-          baddata = baddata.replace(/[.'"|[\]]| /g, "");
-          var data = baddata.split(",");
-          var badtable = [];
-          var i = 0;
-          while (i < data.length) {
-            badtable += "<tr>";
-            for (j = 0; j < 4; j++) {
-              badtable += "<td>" + data[i] + "</td>";
-              i++;
+          if (baddata != "") {
+            baddata = baddata.replace(/[.'"|[\]]|/g, "");
+            var data = baddata.split(",");
+            var csvbad = ["Name,Assignment,Name reviewer,Review score"];
+            var badtable = [];
+            var i = 0;
+            while (i < data.length) {
+              badtable += "<tr>";
+              var rowbad = [];
+              for (j = 0; j < 4; j++) {
+                badtable += "<td>" + data[i] + "</td>";
+                rowbad.push(data[i]);
+                i++;
+              }
+              csvbad.push(rowbad.join(","));
+              badtable += "</tr>";
             }
-            badtable += "</tr>";
+            csvbad = csvbad.join("\n");
+            linkdownload(csvbad, "bad");
+            document.getElementById("badtable").innerHTML = badtable;
           }
-          document.getElementById("badtable").innerHTML = badtable;
+
+          function linkdownload(csv, type) {
+            CSVFile = new Blob([csv], { type: "text/csv" });
+            var temp_link = document.createElement("a");
+            var url = window.URL.createObjectURL(CSVFile);
+            temp_link.href = url;
+            temp_link.className = "dlbtn";
+            if (type == "ambi") {
+              temp_link.innerText = "Download ambigious review file";
+              temp_link.download = "Ambigious review file.csv";
+              document.getElementById("ambidownload").appendChild(temp_link);
+            } else {
+              temp_link.innerText = "Download bad reviewer file";
+              temp_link.download = "Bad reviewer file.csv";
+              document.getElementById("baddownload").appendChild(temp_link);
+            }
+          }
         </script>
       </div>
     </div>

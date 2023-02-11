@@ -339,4 +339,5 @@ tbody tr:hover {
   margin: 5px 0px 0px 0px;
   border-radius: 20px;
   cursor: pointer;
+  text-decoration: none;
 }

@@ -1,7 +1,7 @@
 Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3
-a,1,e,2,g,2,r,8
-b,1,f,9,b,4,f,5
-c,1,w,2,w,2,s,9
-d,1,s,2,t,8,g,8
-e,1,f,8,g,9,v,1
-g,1,a,9,v,3,u,3
+a,1,e,2,g,4,r,5
+b,1,f,3,b,1,f,5
+c,1,w,4,w,2,s,6
+d,1,s,6,t,4,g,8
+e,1,f,8,g,6,v,10
+g,1,a,9,v,7,q,5
