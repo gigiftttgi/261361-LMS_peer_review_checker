@@ -36,8 +36,15 @@ def Process():
    df  = pd.read_csv("uploads/input.csv")
 
    df = df.replace('',np.nan)
+   dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),
+         'Name reviewer2': np.dtype('O'), 'Review score2': np.dtype('int64'), 'Name reviewer3': np.dtype('O'), 'Review score3': np.dtype('int64')}
+
    # print(df.dtypes)
-   if (df.isnull().sum().sum() != 0):
+   # print(df.isnull().sum())
+   # print(dict(df.dtypes) != dt)
+
+   #csv issues
+   if (df.isnull().sum().sum() != 0) or dict(df.dtypes) != dt:
       return jsonify("process-error")
 
    ambi = []
