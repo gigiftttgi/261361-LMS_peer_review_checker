@@ -5,6 +5,7 @@ import os
 from flask import Flask,request, render_template, redirect, url_for, jsonify, send_file
 from werkzeug.utils import secure_filename
 import pandas as pd
+import numpy as np
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -34,6 +35,11 @@ def Process():
 
    df  = pd.read_csv("uploads/input.csv")
 
+   df = df.replace('',np.nan)
+   # print(df.dtypes)
+   if (df.isnull().sum().sum() != 0):
+      return jsonify("process-error")
+
    ambi = []
    sus = []
    bad = []
@@ -43,8 +49,11 @@ def Process():
    att = ['Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
    in_att = list(df.columns)
 
+
+
    if (att == in_att) :
       dfd = df.drop(['Name','Assignment','Name reviewer1','Name reviewer2','Name reviewer3'], axis='columns')
+
       for i in range(0,len(dfd)):
       #sort
          dfS = []
