@@ -1,0 +1,13 @@
+﻿Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3
+A,Assignment1,AA,10,AAA,10,AAAA,10
+B,Assignment1,BB,10,BBB,10,BBBB,5
+C,Assignment1,CC,10,CCC,10,CCCC,9
+D,Assignment1,DD,,DDD,,DDDD,6
+E,Assignment1,EE,10,EEE,5,EEEE,5
+F,Assignment1,FF,10,FFF,5,FFFF,0
+G,Assignment2,GG,10,GGG,,GGGG,6
+H,Assignment2,HH,10,HHH,8,HHHH,7
+I,Assignment3,II,10,III,7,IIII,5
+J,Assignment4,JJ,9,JJJ,5,JJJJ,2
+K,Assignment4,KK,,KKK,,KKKK,
+L,Assignment4,LL,5,LLL,10,LLLL,10

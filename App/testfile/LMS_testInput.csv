@@ -1,0 +1,8 @@
+﻿Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3,
+1,2,3,4,5,6,7,8,
+A,B,C,D,E,F,G,H,
+B,1,BB,10,BBB,10,BBBB,5,BBBBB
+NULL,1,CC,10,CCC,10,CCCC,9,
+D,1,DD,8,DDD,7,DDDD,NULL,
+E,1,EE,NULL,EEE,NULL,EEEE,NULL,
+,1,CC,10,CCC,10,CCCC,9,
