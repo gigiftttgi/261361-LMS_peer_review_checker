@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 global ambilist
 global badlist
-global fname
+global error
 
 # fileitem = form['fileName']
 	
@@ -33,32 +33,31 @@ def Processing():
 @app.route('/process')
 def Process():
 
+   global error
+
    df  = pd.read_csv("uploads/input.csv")
 
    df = df.replace('',np.nan)
    dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),
          'Name reviewer2': np.dtype('O'), 'Review score2': np.dtype('int64'), 'Name reviewer3': np.dtype('O'), 'Review score3': np.dtype('int64')}
 
-   # print(df.dtypes)
-   # print(df.isnull().sum())
-   # print(dict(df.dtypes) != dt)
-
    #csv issues
-   if (df.isnull().sum().sum() != 0) or dict(df.dtypes) != dt:
-      return jsonify("process-error")
+   if (df.isnull().sum().sum() != 0):
+      error = "missing"
+      return jsonify("process-error-mising")
 
    ambi = []
    sus = []
    bad = []
    global badlist
-   global ambilist 
+   global ambilist
 
    att = ['Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
    in_att = list(df.columns)
 
 
 
-   if (att == in_att) :
+   if (att == in_att and dict(df.dtypes) == dt) :
       dfd = df.drop(['Name','Assignment','Name reviewer1','Name reviewer2','Name reviewer3'], axis='columns')
 
       for i in range(0,len(dfd)):
@@ -138,12 +137,13 @@ def Process():
 
       return jsonify("processing")
    else :
-      return jsonify("process-error")
+      error = "att"
+      return jsonify("process-error-att")
    
 
 @app.route('/processing-error')
 def ProcessError():
-   return render_template("processError.html")
+   return render_template("processError.html", error = error)
 
 @app.route('/result')
 def Result():

@@ -219,7 +219,16 @@
             <span style="font-size: 30px; color: #f14647"
               >File cannot be analyzed</span
             >
-            <br />Please try again
+            <br /><span id="cause" data-value="{{error}}"></span>
+            <script>
+              var e = document.getElementById("cause");
+              console.log(e.dataset.value);
+              if (e.dataset.value == "att") {
+                e.innerHTML = "Wrong attribute type or wrong head attributes ";
+              } else {
+                e.innerHTML = "Some attribute is null or missing value";
+              }
+            </script>
           </div>
         </div>
         <div class="container">
