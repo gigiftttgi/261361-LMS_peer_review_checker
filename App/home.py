@@ -6,7 +6,7 @@ from flask import Flask,request, render_template, redirect, url_for, jsonify, se
 from werkzeug.utils import secure_filename
 import pandas as pd
 import numpy as np
-
+import statistics as st
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'csv'}
@@ -72,7 +72,7 @@ def Process():
          b = dfS[1] - dfS[2]
     
          if 1 >= abs(a-b) >= 0:
-            if dfS[0] - dfS[1] != 0 and  dfS[1] - dfS[2] != 0:   #find ambigious
+            if st.stdev(dfS)>1.6:   #find ambigious
                ambi.append(df.iloc[i])
          elif (a+b) >=3:     #still improving
             sus.append(df.iloc[i])      #find sus
