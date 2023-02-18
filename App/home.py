@@ -30,6 +30,13 @@ def UploadError():
 def Processing():  
    return render_template("process.html")
 
+def swap_columns(df, col1, col2):
+    col_list = list(df.columns)
+    x, y = col_list.index(col1), col_list.index(col2)
+    col_list[y], col_list[x] = col_list[x], col_list[y]
+    df = df[col_list]
+    return df
+
 @app.route('/process')
 def Process():
 
@@ -102,7 +109,6 @@ def Process():
       #read sus.csv
       sus  = pd.read_csv("suspect.csv")
 
-      print(sus)
       #Map bad from sus.csv
       name = []
       asn = []
@@ -121,16 +127,22 @@ def Process():
             bname.append(sus.iloc[i]['Name reviewer1'])
             bscore.append(sus.iloc[i]['Review score1'])
 
+      # bad_review = {
+      #    'Name' : name,
+      #    'Assignment' : asn,
+      #    'Bad Reviewer' : bname,
+      #    'Score' : bscore
+      # }
+
       bad_review = {
-         'Name' : name,
-         'Assignment' : asn,
          'Bad Reviewer' : bname,
-         'Score' : bscore
+         'Score' : bscore,
+         'Name' : name,
+         'Assignment' : asn
       }
 
       bad = pd.DataFrame(bad_review)
 
-      # list of bad reviewers to display in the table. 
       badlist = bad.to_json(orient="values")
 
       bad.to_csv('bad_reviewer.csv', index=False)
