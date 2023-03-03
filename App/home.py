@@ -16,10 +16,17 @@ global ambilist
 global badlist
 global error
 
-# fileitem = form['fileName']
-	
+
 @app.route('/')
 def Home():
+   return render_template("home.html")
+
+@app.route('/api')
+def API():
+   return render_template("api.html")
+
+@app.route('/upload')
+def Upload():
    return render_template("upload.html")
 
 @app.route('/upload-error')

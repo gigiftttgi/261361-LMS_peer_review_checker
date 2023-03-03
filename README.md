@@ -18,12 +18,3 @@ _pip3 install pandas | pip install pandas_
 2. _venv\Scripts\Activate.ps1_
 3. _pip install Flask_
 4. _python3 home.py_
-
-Done :
-upload only file .csv
-ui page
-redict from upload tp processing
-processing file to find result
-download result (.csv file)
-
-bug :
