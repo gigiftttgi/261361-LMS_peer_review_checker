@@ -14,6 +14,39 @@ body {
   outline: 0;
 }
 
+/*home*/
+.homebody {
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  width: 50%;
+  height: 100%;
+  float: left;
+  background: #088f8f;
+}
+
+.content {
+  width: 50%;
+  height: 100%;
+  float: right;
+}
+
+.homebtn {
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #161616;
+  background: #f9f9f9;
+  margin: 20px 30px 20px 30px;
+  padding: 5px 0px 5px 0px;
+  font-size: 15px;
+  width: 200px;
+}
+
+/*header*/
 .header {
   margin-top: 0px;
   font-size: 19px;
@@ -27,6 +60,47 @@ body {
 .headertxt {
   font-size: 19px;
   color: #088f8f;
+}
+
+/*lang*/
+.lang {
+  display: flex;
+  justify-content: right;
+}
+
+.boxborder {
+  display: flex;
+  /* align-items: center; */
+  float: right;
+  margin: 5px 10px 5px 0px;
+  /* width: 100px;
+  height: 25px; */
+  border: 2px solid #088f8f;
+}
+
+.langbtn {
+  align-items: center;
+  text-align: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #088f8f;
+  padding: 5px 0px 5px 0px;
+  font-size: 15px;
+  width: 40px;
+}
+
+.langbtn-active {
+  align-items: center;
+  text-align: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #ffffff;
+  padding: 5px 0px 5px 0px;
+  background-color: #088f8f;
+  font-size: 15px;
+  width: 40px;
 }
 
 /* Step */
