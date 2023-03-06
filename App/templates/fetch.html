@@ -1,10 +1,6 @@
-<!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" href="/static/style.css" />
-    <!-- <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/action.js" type="text/javascript"></script> -->
   </head>
   <body>
     <!-- Header -->
@@ -37,14 +33,6 @@
         </div>
       </a>
     </div>
-
-    <!-- <div class="lang">
-      <div class="boxborder">
-        <div class="langbtn-active">EN</div>
-        <div class="langbtn">TH</div>
-      </div>
-    </div> -->
-
     <!-- ส่วนบอกstep -->
     <div class="menu">
       <div class="step">
@@ -72,7 +60,7 @@
           </svg>
         </div>
         <div class="line-pad">
-          <div class="line"></div>
+          <div class="line-suss"></div>
         </div>
       </div>
 
@@ -226,27 +214,33 @@
 
     <div class="body">
       <div class="borderout">
-        <form
-          enctype="multipart/form-data"
-          action="/fetch"
-          method="post"
-          id="myform"
-        >
-          <input type="text" name="courseid" placeholder="Enter course id" />
-        </form>
-        <button class="uploadbtn" type="submit" value="submit" form="myform">
-          Fetch
-        </button>
-        <!-- <button
-          id="next"
-          class="uploadbtn"
-          onclick="window.location.href='/fetchcomplete'"
-          style="display: none"
-        >
-          analyze
-        </button> -->
-        <!-- <form action="{{ url_for('FetchAPI') }}"></form> -->
+        <!-- <div class="container">
+          <div class="loader"></div>
+        </div> -->
+        <div class="spinlayout">
+          <div class="loader"></div>
+        </div>
       </div>
     </div>
+
+    <script>
+      async function fetchMango() {
+        const response = await fetch("/fetchapi");
+        console.log(response);
+        // const data = await response.json();
+        // return data;
+      }
+
+      //   fetchMango().then((data) => navigate(data));
+
+      //   function navigate(data) {
+      //     console.log(data);
+      //     if (data == "fatchsuccess") {
+      //       window.location.href = "fetchcomplate";
+      //     } else {
+      //       window.location.href = "fetch-error";
+      //     } // redirect when done!
+      //   }
+    </script>
   </body>
 </html>
