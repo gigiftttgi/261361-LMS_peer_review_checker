@@ -1,15 +1,19 @@
 # from flask import Flask,render_template
-
-import json
 import os
 from flask import Flask,request, render_template, redirect, url_for, jsonify, send_file
 from werkzeug.utils import secure_filename
 import pandas as pd
 import numpy as np
 import statistics as st
+import requests
+import csv
+import asyncio
+
+
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'csv'}
+loop = asyncio.get_event_loop()
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 global ambilist
@@ -25,6 +29,194 @@ def Home():
 def API():
    return render_template("api.html")
 
+def getAssess():
+   URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2568?include%5B%5D=peer_assessments'
+   TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
+   f = open('assesments.py', 'w')
+   response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
+
+   f.write('assessments = [')
+   for i in range(len(response.json()['assessments'])):
+      f.write(str(response.json()['assessments'][i]) + ',')
+   f.write(']')
+   f.close()
+   return True
+
+def getReview():
+   URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11301/peer_reviews'
+   TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
+   f = open('peerreview.py', 'w')
+   response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
+
+   f.write('ureview = [')
+   for i in range(len(response.json())):
+      f.write(str(response.json()[i]) + ',')
+   f.write(']')
+   f.close()
+   return True
+
+
+# async def writeToCSV():
+#     await getAssess();
+#     await getReview();
+#     import peerreview
+#     import assesments
+#     URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
+#     TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
+
+#     userid = []
+#     username = []
+#     a1id = []
+#     a1name = []
+#     a2id = []
+#     a2name = []
+#     a3id = []
+#     a3name = []
+#     s1 = []
+#     s2 = []
+#     s3 = []
+#     check = []
+#     n_peerreview = peerreview.ureview
+#     n_assessments = assesments.assessments
+
+#     countu = 0
+#     for i in n_peerreview:
+#         countu += 1
+#         if countu%100 == 0:
+#             print(countu)
+#         if userid.count(i['user_id']) == 0:
+#             check.append(1)
+#             userid.append(i['user_id'])
+#             username.append(requests.get(URL+"users/"+str(i["user_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"])
+#             a1id.append(i["assessor_id"])
+#             a1name.append(requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]) 
+#             a2id.append(-1)
+#             a2name.append("xxx")
+#             a3id.append(-1)
+#             a3name.append("xxx")
+#             s1.append(-1)
+#             s2.append(-1)
+#             s3.append(-1)
+#         else:
+#             index = userid.index(i["user_id"])
+#             if check[index] == 1:
+#                 a2id[index] = i["assessor_id"]
+#                 a2name[index] = requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]
+#                 check[index] = 2
+#             elif check[index] == 2:
+#                 a3id[index] = i["assessor_id"]
+#                 a3name[index] = requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]
+#                 check[index] = 3
+
+#     for j in n_assessments:
+#         for i in n_peerreview:
+#             if j["artifact_id"]==i["asset_id"]:
+#                 index = userid.index(i["user_id"])
+#                 if a1id[index] == j["assessor_id"]:
+#                     s1[index] = j["score"]
+#                 elif a2id[index] == j["assessor_id"]:
+#                     s2[index] = j["score"]
+#                 elif a3id[index] == j["assessor_id"]:
+#                     s3[index] = j["score"]
+
+
+#     fields = ['Name', 'Assignment id', 'Name review 1', 'Review score 1', 'Name review 2', 'Review score 2', 'Name review 3', 'Review score 3']
+
+#     with open(' uploads/input.csv', 'w', newline='') as file:
+#         # w = csv.DictWriter(file, fieldnames = fields)
+#         # w.writeheader()
+#         w = csv.writer(file)
+#         w.writerow(fields)
+#         for i in range(len(userid)):
+#             w.writerow([username[i], '11301', a1name[i], s1[i], a2name[i], s2[i], a3name[i], s3[i]])
+
+@app.route('/fetchapi', methods=['POST'])
+def FetchAPI():
+   # if request.method == 'POST':
+   #    a = getAssess()
+   #    b = getReview()
+   #    print(a)
+   #    print(b)
+   #    # asyncio.run(writeToCSV())
+   #    if(a != True or b != True):
+   #       print("a")
+   #       print(a)
+   #       print("b")
+   #       print(b)
+   #       return redirect(url_for('UploadError'))
+      # import peerreview
+      # import assesments
+      # URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
+      # TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
+
+      # userid = []
+      # username = []
+      # a1id = []
+      # a1name = []
+      # a2id = []
+      # a2name = []
+      # a3id = []
+      # a3name = []
+      # s1 = []
+      # s2 = []
+      # s3 = []
+      # check = []
+      # n_peerreview = peerreview.ureview
+      # n_assessments = assesments.assessments
+
+      # countu = 0
+      # for i in n_peerreview:
+      #    countu += 1
+      #    if countu%100 == 0:
+      #          print(countu)
+      #    if userid.count(i['user_id']) == 0:
+      #          check.append(1)
+      #          userid.append(i['user_id'])
+      #          username.append(requests.get(URL+"users/"+str(i["user_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"])
+      #          a1id.append(i["assessor_id"])
+      #          a1name.append(requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]) 
+      #          a2id.append(-1)
+      #          a2name.append("xxx")
+      #          a3id.append(-1)
+      #          a3name.append("xxx")
+      #          s1.append(-1)
+      #          s2.append(-1)
+      #          s3.append(-1)
+      #    else:
+      #          index = userid.index(i["user_id"])
+      #          if check[index] == 1:
+      #             a2id[index] = i["assessor_id"]
+      #             a2name[index] = requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]
+      #             check[index] = 2
+      #          elif check[index] == 2:
+      #             a3id[index] = i["assessor_id"]
+      #             a3name[index] = requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]
+      #             check[index] = 3
+
+      # for j in n_assessments:
+      #    for i in n_peerreview:
+      #          if j["artifact_id"]==i["asset_id"]:
+      #             index = userid.index(i["user_id"])
+      #             if a1id[index] == j["assessor_id"]:
+      #                s1[index] = j["score"]
+      #             elif a2id[index] == j["assessor_id"]:
+      #                s2[index] = j["score"]
+      #             elif a3id[index] == j["assessor_id"]:
+      #                s3[index] = j["score"]
+
+
+      # fields = ['Name', 'Assignment id', 'Name review 1', 'Review score 1', 'Name review 2', 'Review score 2', 'Name review 3', 'Review score 3']
+
+      # with open(' uploads/input.csv', 'w', newline='') as file:
+      #    # w = csv.DictWriter(file, fieldnames = fields)
+      #    # w.writeheader()
+      #    w = csv.writer(file)
+      #    w.writerow(fields)
+      #    for i in range(len(userid)):
+      #          w.writerow([username[i], '11301', a1name[i], s1[i], a2name[i], s2[i], a3name[i], s3[i]])
+      return redirect(url_for('Processing'))
+   # else: return redirect(url_for('UploadError'))
+
 @app.route('/upload')
 def Upload():
    return render_template("upload.html")
@@ -37,12 +229,12 @@ def UploadError():
 def Processing():  
    return render_template("process.html")
 
-def swap_columns(df, col1, col2):
-    col_list = list(df.columns)
-    x, y = col_list.index(col1), col_list.index(col2)
-    col_list[y], col_list[x] = col_list[x], col_list[y]
-    df = df[col_list]
-    return df
+# def swap_columns(df, col1, col2):
+#     col_list = list(df.columns)
+#     x, y = col_list.index(col1), col_list.index(col2)
+#     col_list[y], col_list[x] = col_list[x], col_list[y]
+#     df = df[col_list]
+#     return df
 
 @app.route('/process')
 def Process():

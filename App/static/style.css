@@ -8,6 +8,7 @@ body {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   /* width: 100%; */
+  position: relative;
   margin: 0;
   padding: 0;
   border: 0;
@@ -22,15 +23,19 @@ body {
 
 .left {
   width: 50%;
-  /* height: 90%; */
+
+  height: 695px;
+  display: flex;
   float: left;
-  background: #088f8f;
+  /* padding-left: 20px; */
+  /* background: #088f8f; */
   align-items: center;
   justify-content: center;
 }
 
 .content {
   width: 50%;
+  height: 695px;
   /* height: 90%; */
   float: right;
 }
@@ -42,6 +47,20 @@ body {
   border-radius: 10px;
   border: 2px solid #161616;
   background: #f9f9f9;
+  margin: 20px 30px 20px 30px;
+  padding: 5px 0px 5px 0px;
+  font-size: 15px;
+  width: 200px;
+}
+
+.homebtn:hover {
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  color: #f9f9f9;
+  border: 2px solid #088f8f;
+  background: #088f8f;
   margin: 20px 30px 20px 30px;
   padding: 5px 0px 5px 0px;
   font-size: 15px;
@@ -222,6 +241,7 @@ body {
 }
 
 .borderin {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -416,4 +436,13 @@ tbody tr:hover {
   border-radius: 20px;
   cursor: pointer;
   text-decoration: none;
+}
+
+.detailsBox {
+  width: 400px;
+  height: 100px;
+  z-index: 9px;
+  margin-top: 20px;
+  border: 1px solid #161616;
+  background: #ffffff;
 }

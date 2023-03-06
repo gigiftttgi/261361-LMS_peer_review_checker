@@ -226,7 +226,18 @@
 
     <div class="body">
       <div class="borderout">
-        <!-- ใส่ HTML ได้ตรงนี้เรยคับ -->
+        <form
+          enctype="multipart/form-data"
+          action="/fetchapi"
+          method="post"
+          id="myform"
+        >
+          <input type="text" name="course" placeholder="Enter course id" />
+        </form>
+        <button class="uploadbtn" type="submit" value="fetchapi" form="myform">
+          Upload and Analyze
+        </button>
+        <!-- <form action="{{ url_for('FetchAPI') }}"></form> -->
       </div>
     </div>
   </body>
