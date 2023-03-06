@@ -223,17 +223,29 @@
       </div>
     </div>
     <script type="module">
-      //   const res = await fetch("http://127.0.0.1:8000/fetchapi");
-      //   const data = await res.json();
+      //   //   const res = await fetch("http://127.0.0.1:8000/fetchapi");
+      //   //   const data = await res.json();
+      //   //   console.log(data);
+
+      //   async function main() {
+      //     const res = await fetch("http://127.0.0.1:8000/fetchapi");
+      //     const data = await res.json();
+      //     console.log(data);
+      //   }
+
+      //   main();
+      // function navigate(data) {
       //   console.log(data);
+      //   if (data == "success") {
+      //     window.location.href = "fetchcomplete";
+      //   } else {
+      //     window.location.href = "fetch-error";
+      //   } // redirect when done!
+      // }
 
-      async function main() {
-        const res = await fetch("http://127.0.0.1:8000/fetchapi");
-        const data = await res.json();
-        console.log(data);
-      }
-
-      main();
+      // fetch("fetchapi")
+      //   .then((response) => response.json())
+      //   .then((data) => navigate(data));
     </script>
   </body>
 </html>

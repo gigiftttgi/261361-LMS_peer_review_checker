@@ -33,7 +33,6 @@ def API():
    return render_template("api.html")
 
 async def getAssess():
-   await getReview()
    URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2568?include%5B%5D=peer_assessments'
    TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
    f = open('assesments.py', 'w')
@@ -47,6 +46,7 @@ async def getAssess():
    return True
 
 async def getReview():
+   await getAssess()
    URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11301/peer_reviews'
    TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
    f = open('peerreview.py', 'w')
@@ -59,9 +59,8 @@ async def getReview():
    f.close()
    return True
 
-
 async def writeToCSV():
-    await getAssess()
+    await getReview()
     URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
     TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
 
@@ -131,27 +130,28 @@ async def writeToCSV():
 
         for i in range(len(userid)):
             w.writerow([username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i])])
-
     return True
 
 @app.route('/fetchapi')
 async def FetchAPI():
-   a = await writeToCSV()
-   if(a):
-      return jsonify("success")
-   return jsonify("error")
+      render_template("fetch.html")
+      a = await writeToCSV()
+      return redirect(url_for('Processing'))
+      # return jsonify("success")
 
 
 @app.route('/fetch', methods=['POST'])
-def Fetch():
+async def Fetch():
    courseid = request.form['courseid']
    print(courseid)
-   return render_template("fetch.html")
-
-
-@app.route('/fetchcomplete')
-async def FetchComplete():
+   a = await writeToCSV()
    return redirect(url_for('Processing'))
+   # return redirect(url_for('fetchapi'))
+
+
+# @app.route('/fetchcomplete')
+# async def FetchComplete():
+#    return redirect(url_for('Processing'))
 
 @app.route('/fetch-error')
 async def FetchError():

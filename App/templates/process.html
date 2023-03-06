@@ -232,6 +232,7 @@
           window.location.href = "processing-error";
         } // redirect when done!
       }
+
       fetch("process")
         .then((response) => response.json())
         .then((data) => navigate(data)); // load the slow url then navigate
