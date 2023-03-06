@@ -222,25 +222,18 @@
         </div>
       </div>
     </div>
+    <script type="module">
+      //   const res = await fetch("http://127.0.0.1:8000/fetchapi");
+      //   const data = await res.json();
+      //   console.log(data);
 
-    <script>
-      async function fetchMango() {
-        const response = await fetch("/fetchapi");
-        console.log(response);
-        // const data = await response.json();
-        // return data;
+      async function main() {
+        const res = await fetch("http://127.0.0.1:8000/fetchapi");
+        const data = await res.json();
+        console.log(data);
       }
 
-      //   fetchMango().then((data) => navigate(data));
-
-      //   function navigate(data) {
-      //     console.log(data);
-      //     if (data == "fatchsuccess") {
-      //       window.location.href = "fetchcomplate";
-      //     } else {
-      //       window.location.href = "fetch-error";
-      //     } // redirect when done!
-      //   }
+      main();
     </script>
   </body>
 </html>

@@ -137,8 +137,11 @@ async def writeToCSV():
 @app.route('/fetchapi')
 async def FetchAPI():
    a = await writeToCSV()
-   print(a);
-   return a
+   if(a):
+      return jsonify("success")
+   return jsonify("error")
+
+
 @app.route('/fetch', methods=['POST'])
 def Fetch():
    courseid = request.form['courseid']
