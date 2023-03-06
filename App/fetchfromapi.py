@@ -30,8 +30,8 @@ async def getReview():
     f.close()
 
 async def writeToCSV():
-    await getAssess();
     await getReview();
+    await getAssess();
     import peerreview
     import assesments
     URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
@@ -93,15 +93,16 @@ async def writeToCSV():
                     s3[index] = j["score"]
 
 
-    fields = ['Name', 'Assignment id', 'Name review 1', 'Review score 1', 'Name review 2', 'Review score 2', 'Name review 3', 'Review score 3']
+    fields = ['Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
 
     with open('uploads/input.csv', 'w', newline='') as file:
         # w = csv.DictWriter(file, fieldnames = fields)
         # w.writeheader()
         w = csv.writer(file)
         w.writerow(fields)
+
         for i in range(len(userid)):
-            w.writerow([username[i], '11301', a1name[i], s1[i], a2name[i], s2[i], a3name[i], s3[i]])
+            w.writerow([username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i])])
 
 
 asyncio.run(writeToCSV())
