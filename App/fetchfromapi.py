@@ -10,6 +10,8 @@ async def getAssess():
     f = open('assesments.py', 'w')
     response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
 
+    print(response)
+    print(type(response))
     f.write('assessments = [')
     for i in range(len(response.json()['assessments'])):
         f.write(str(response.json()['assessments'][i]) + ',')
@@ -29,8 +31,8 @@ async def getReview():
     f.close()
 
 async def writeToCSV():
-    await getReview();
-    await getAssess();
+    await getReview()
+    await getAssess()
     import peerreview
     import assesments
     URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
@@ -105,3 +107,4 @@ async def writeToCSV():
 
 
 asyncio.run(writeToCSV())
+print("complate")

@@ -60,7 +60,7 @@
           </svg>
         </div>
         <div class="line-pad">
-          <div class="line-suss"></div>
+          <div class="line"></div>
         </div>
       </div>
 
@@ -223,29 +223,40 @@
       </div>
     </div>
     <script type="module">
-      //   //   const res = await fetch("http://127.0.0.1:8000/fetchapi");
-      //   //   const data = await res.json();
-      //   //   console.log(data);
-
-      //   async function main() {
-      //     const res = await fetch("http://127.0.0.1:8000/fetchapi");
-      //     const data = await res.json();
-      //     console.log(data);
-      //   }
-
       //   main();
       // function navigate(data) {
+      //   console.log("navigate");
       //   console.log(data);
-      //   if (data == "success") {
-      //     window.location.href = "fetchcomplete";
-      //   } else {
-      //     window.location.href = "fetch-error";
-      //   } // redirect when done!
+      //   console.log(data.json());
+      //   // if (data == "success") {
+      //   //   window.location.href = "processing";
+      //   // } else {
+      //   //   window.location.href = "fetch-error";
+      //   // } // redirect when done!
       // }
 
-      // fetch("fetchapi")
-      //   .then((response) => response.json())
-      //   .then((data) => navigate(data));
+      // fetch("fetchapi").then((response) => navigate(response));
+      // .then((data) => console.log(data));
+      // async function fetchMovies() {
+      //   const response = await fetch("/fetchapi");
+      //   const data = await response.json();
+      //   if (data == "success") window.location.href = "processing";
+      //   return response;
+      // }
+
+      // fetchMovies();
+      fetch("fetchapi", {
+        method: "GET",
+      })
+        .then((response) => {
+          if (response.json() == "success") {
+            window.location.href = "processing";
+          }
+        })
+        .catch(function (e) {});
+      // if (f == 1) {
+      //   window.location.href = "processing";
+      // }
     </script>
   </body>
 </html>

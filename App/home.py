@@ -9,9 +9,6 @@ import requests
 import csv
 import json
 import asyncio
-import peerreview
-import assesments
-
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -26,6 +23,9 @@ global error
 
 @app.route('/')
 def Home():
+   # if(os.path.isfile("assesments.py") or os.path.isfile("peerreview.py")):
+   #    os.remove("assesments.py") 
+   #    os.remove("peerreview.py") 
    return render_template("home.html")
 
 @app.route('/api')
@@ -33,9 +33,10 @@ def API():
    return render_template("api.html")
 
 async def getAssess():
+   print("assaets")
    URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2568?include%5B%5D=peer_assessments'
    TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
-   f = open('assesments.py', 'w')
+   f = open('assesments.py', 'a')
    response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
 
    f.write('assessments = [')
@@ -43,13 +44,14 @@ async def getAssess():
       f.write(str(response.json()['assessments'][i]) + ',')
    f.write(']')
    f.close()
-   return True
+   # return True
 
 async def getReview():
    await getAssess()
+   print("review")
    URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11301/peer_reviews'
    TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
-   f = open('peerreview.py', 'w')
+   f = open('peerreview.py', 'a')
    response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
 
    f.write('ureview = [')
@@ -57,10 +59,13 @@ async def getReview():
       f.write(str(response.json()[i]) + ',')
    f.write(']')
    f.close()
-   return True
+   # return True
 
 async def writeToCSV():
     await getReview()
+    print("write")
+    import peerreview
+    import assesments
     URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
     TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
 
@@ -130,31 +135,30 @@ async def writeToCSV():
 
         for i in range(len(userid)):
             w.writerow([username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i])])
-    return True
+    return "success"
 
-@app.route('/fetchapi')
+
+@app.route('/fetchapi', methods=['GET'])
 async def FetchAPI():
-      render_template("fetch.html")
-      a = await writeToCSV()
-      return redirect(url_for('Processing'))
+   print("a")
+   a = await writeToCSV()
+   if(a == "success"):
+      print("success")
       # return jsonify("success")
+      return jsonify("success")
+
+   else:
+      return jsonify("error")
 
 
 @app.route('/fetch', methods=['POST'])
-async def Fetch():
+def Fetch():
    courseid = request.form['courseid']
    print(courseid)
-   a = await writeToCSV()
-   return redirect(url_for('Processing'))
-   # return redirect(url_for('fetchapi'))
-
-
-# @app.route('/fetchcomplete')
-# async def FetchComplete():
-#    return redirect(url_for('Processing'))
+   return render_template('fetchapi.html')
 
 @app.route('/fetch-error')
-async def FetchError():
+def FetchError():
    return render_template("fetchError.html")
 
 @app.route('/upload')
