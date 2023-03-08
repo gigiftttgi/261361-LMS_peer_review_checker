@@ -125,7 +125,7 @@ async def writeToCSV():
                     s3[index] = j["score"]
 
 
-    fields = ['Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
+    fields = ['ID', 'Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
 
     with open('uploads/input.csv', 'w', newline='') as file:
         # w = csv.DictWriter(file, fieldnames = fields)
@@ -134,9 +134,8 @@ async def writeToCSV():
         w.writerow(fields)
 
         for i in range(len(userid)):
-            w.writerow([username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i])])
-    return "success"
-
+            w.writerow([int(userid[i]),username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i])])
+    return True
 
 @app.route('/fetchapi', methods=['GET'])
 async def FetchAPI():
