@@ -336,6 +336,7 @@
             var ambidata = document.getElementById("ambitable").dataset.value;
             if (ambidata != "") {
               ambidata = ambidata.replace(/[.'"|[\]]|/g, "");
+              console.log(ambidata);
               var data = ambidata.split(",");
               var csvambi = [
                 "ID,Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3",
