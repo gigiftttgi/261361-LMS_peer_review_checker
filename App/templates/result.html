@@ -284,6 +284,7 @@
                     <th>Review score 2</th>
                     <th>Reviwer 3</th>
                     <th>Review score 3</th>
+                    <th>Link</th>
                   </tr>
                 </thead>
                 <tbody id="ambitable" data-value="{{ ambiresult }}"></tbody>
@@ -336,7 +337,7 @@
             var ambidata = document.getElementById("ambitable").dataset.value;
             if (ambidata != "") {
               ambidata = ambidata.replace(/[.'"|[\]]|/g, "");
-              console.log(ambidata);
+              // console.log(ambidata);
               var data = ambidata.split(",");
               var csvambi = [
                 "ID,Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3",
@@ -346,7 +347,7 @@
               while (i < data.length) {
                 ambitable += "<tr>";
                 var rowambi = [];
-                for (j = 0; j < 9; j++) {
+                for (j = 0; j < 10; j++) {
                   if ((j == 1) | (j == 2)) {
                     ambitable +=
                       "<td onclick='clicktd(event," +
@@ -354,6 +355,9 @@
                       ")' style='cursor: pointer;'>" +
                       data[i] +
                       "</td>";
+                  }
+                  if (j == 9) {
+                    // data[i] = encodeURI(data[i]).replaceAll("%5C", "");
                   }
                   rowambi.push(data[i]);
                   i++;
@@ -422,11 +426,22 @@
             var datatable = [];
             data = csvambi[index].split(",");
             datatable += "<tr>";
-            for (l = 0; l < 9; l++) {
+            for (l = 0; l < 10; l++) {
               if (l == 0) {
                 id = data[l];
               }
-              datatable += "<td>" + data[l] + "</td>";
+              if (l < 9) datatable += "<td>" + data[l] + "</td>";
+              else {
+                console.log(data[l]);
+                link =
+                  "https://mango-cmu.instructure.com/courses" +
+                  encodeURI(data[l]).split("courses")[1];
+                link = link.replaceAll("%5C", "");
+                datatable +=
+                  "<td><a href='" +
+                  link +
+                  "'  target='_blank' style='text-decoration: none ,color: #161616' >Link</a></td>";
+              }
             }
             datatable += "</tr>";
             document.getElementById("ambitable").innerHTML = datatable;
@@ -437,7 +452,7 @@
 
             // go back button
             document.getElementById("ambidownload").innerHTML =
-              "<div><span onclick='linktowork()'>Link to work</span> | <span onclick='printambitable()'>Go back to table</span></div>";
+              "<div><span onclick='printambitable()'>Go back to table</span></div>";
             event.stopPropagation();
           }
         </script>
