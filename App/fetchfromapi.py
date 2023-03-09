@@ -6,10 +6,12 @@ import asyncio
 
 async def getAssess():
     URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2568?include%5B%5D=peer_assessments'
-    TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
-    f = open('assesments.py', 'w')
+    TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
+    
     response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
-
+    f = open('assesments.py', 'w')
+    print(response)
+    print(type(response))
     f.write('assessments = [')
     for i in range(len(response.json()['assessments'])):
         f.write(str(response.json()['assessments'][i]) + ',')
@@ -18,10 +20,10 @@ async def getAssess():
 
 async def getReview():
     URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11301/peer_reviews'
-    TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
-    f = open('peerreview.py', 'w')
-    response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
+    TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
 
+    response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
+    f = open('peerreview.py', 'w')
     f.write('ureview = [')
     for i in range(len(response.json())):
         f.write(str(response.json()[i]) + ',')
@@ -29,12 +31,12 @@ async def getReview():
     f.close()
 
 async def writeToCSV():
-    await getReview();
-    await getAssess();
+    await getReview()
+    await getAssess()
     import peerreview
     import assesments
     URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
-    TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
+    TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
 
     userid = []
     username = []
@@ -105,3 +107,4 @@ async def writeToCSV():
 
 
 asyncio.run(writeToCSV())
+print("complate")

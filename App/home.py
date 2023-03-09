@@ -33,8 +33,8 @@ def API():
    return render_template("api.html")
 
 async def getAssess():
-   URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2568?include%5B%5D=peer_assessments'
-   TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
+   URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2576?include%5B%5D=peer_assessments'
+   TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
    f = open('assesments.py', 'w')
    response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
 
@@ -47,8 +47,8 @@ async def getAssess():
 
 async def getReview():
    await getAssess()
-   URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11301/peer_reviews'
-   TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
+   URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11724/peer_reviews'
+   TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
    f = open('peerreview.py', 'w')
    response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
 
@@ -62,7 +62,7 @@ async def getReview():
 async def writeToCSV():
     await getReview()
     URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
-    TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
+    TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
 
     userid = []
     username = []
@@ -146,12 +146,6 @@ async def Fetch():
    print(courseid)
    a = await writeToCSV()
    return redirect(url_for('Processing'))
-   # return redirect(url_for('fetchapi'))
-
-
-# @app.route('/fetchcomplete')
-# async def FetchComplete():
-#    return redirect(url_for('Processing'))
 
 @app.route('/fetch-error')
 async def FetchError():
@@ -169,19 +163,14 @@ def UploadError():
 def Processing():  
    return render_template("process.html")
 
-# def swap_columns(df, col1, col2):
-#     col_list = list(df.columns)
-#     x, y = col_list.index(col1), col_list.index(col2)
-#     col_list[y], col_list[x] = col_list[x], col_list[y]
-#     df = df[col_list]
-#     return df
-
 @app.route('/process')
 def Process():
 
    global error
 
-   df  = pd.read_csv("uploads/input.csv")
+   dff  = pd.read_csv("uploads/input.csv")
+
+   df = dff.drop(['ID'], axis='columns')
 
    df = df.replace('',np.nan)
    dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),
@@ -214,12 +203,16 @@ def Process():
          dfS.append(dfd.iloc[i][2])
          dfS.sort(reverse=True)
 
+         if(-1 in dfS):
+            error = "missing"
+            return jsonify("process-error-mising")
+
          a = dfS[0] - dfS[1]
          b = dfS[1] - dfS[2]
     
          if 1 >= abs(a-b) >= 0:
             if st.stdev(dfS)>1.6:   #find ambigious
-               ambi.append(df.iloc[i])
+               ambi.append(dff.iloc[i])
          elif (a+b) >=3:     #still improving
             sus.append(df.iloc[i])      #find sus
             if a>b :

@@ -5,10 +5,11 @@ URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2568?includ
 TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
 f = open('assesments.py', 'a')
 response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
-
+print(response.json())
 f.write('assessments = [')
 for i in range(len(response.json()['assessments'])):
     f.write(str(response.json()['assessments'][i]) + ',')
+    print(type(response.json()['assessments'][i]))
 f.write(']')
 f.close()
 

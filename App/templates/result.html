@@ -275,7 +275,8 @@
                     <th>Review score</th> -->
                   </tr>
                   <tr id="trambidata" style="display: none">
-                    <th style="border-left: 0px">Name</th>
+                    <th style="border-left: 0px">ID</th>
+                    <th>Name</th>
                     <th>Assignment</th>
                     <th>Reviwer 1</th>
                     <th>Review score 1</th>
@@ -335,17 +336,18 @@
             var ambidata = document.getElementById("ambitable").dataset.value;
             if (ambidata != "") {
               ambidata = ambidata.replace(/[.'"|[\]]|/g, "");
+              console.log(ambidata);
               var data = ambidata.split(",");
               var csvambi = [
-                "Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3",
+                "ID,Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3",
               ];
               var ambitable = [];
               var i = 0;
               while (i < data.length) {
                 ambitable += "<tr>";
                 var rowambi = [];
-                for (j = 0; j < 8; j++) {
-                  if ((j == 0) | (j == 1)) {
+                for (j = 0; j < 9; j++) {
+                  if ((j == 1) | (j == 2)) {
                     ambitable +=
                       "<td onclick='clicktd(event," +
                       i +
@@ -413,13 +415,17 @@
           }
 
           function clicktd(event, i) {
+            var id;
             //print data of this ambi review
             csvambi = printambitable().split("\n");
             var index = Math.floor(i / 8) + 1;
             var datatable = [];
             data = csvambi[index].split(",");
             datatable += "<tr>";
-            for (l = 0; l < 8; l++) {
+            for (l = 0; l < 9; l++) {
+              if (l == 0) {
+                id = data[l];
+              }
               datatable += "<td>" + data[l] + "</td>";
             }
             datatable += "</tr>";
@@ -431,7 +437,7 @@
 
             // go back button
             document.getElementById("ambidownload").innerHTML =
-              "<div onclick='printambitable()'>Go back to table</div>";
+              "<div><span onclick='linktowork()'>Link to work</span> | <span onclick='printambitable()'>Go back to table</span></div>";
             event.stopPropagation();
           }
         </script>
