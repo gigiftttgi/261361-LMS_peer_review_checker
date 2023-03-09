@@ -37,8 +37,6 @@ def API():
 
 async def getAssess():
    URL = 'https://mango-cmu.instructure.com/api/v1/courses/'
-   # URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2568?include%5B%5D=peer_assessments'
-   # TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
    f = open('assesments.py', 'w')
    response = requests.get(URL + courseid + '/rubrics/' + rubricid + '?include%5B%5D=peer_assessments', headers = {'Authorization': 'Bearer ' + token})
 
@@ -52,8 +50,6 @@ async def getAssess():
 async def getReview():
    await getAssess()
    URL = 'https://mango-cmu.instructure.com/api/v1/courses/'
-   # URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11301/peer_reviews'
-   # TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
    f = open('peerreview.py', 'w')
    response = requests.get(URL+courseid + '/assignments/' + assignid + '/peer_reviews', headers = {'Authorization': 'Bearer ' + token})
 
@@ -67,7 +63,6 @@ async def getReview():
 async def writeToCSV():
     await getReview()
     URL = "https://mango-cmu.instructure.com/api/v1/courses/"
-   #  TOKEN = "21123~7IqgzXjHh3oxiQuEE1E6tSB2jyAqhPl4T1EFhGUf3ioNVJ7tXBXaWpUlFk0zQohv"
 
     userid = []
     username = []
@@ -196,11 +191,10 @@ def Process():
 
    global error
 
-   df  = pd.read_csv("uploads/input.csv")
-
+   dff  = pd.read_csv("uploads/input.csv")
+   df = dff.drop(['ID'], axis='columns')
    df = df.replace('',np.nan)
-   dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),
-         'Name reviewer2': np.dtype('O'), 'Review score2': np.dtype('int64'), 'Name reviewer3': np.dtype('O'), 'Review score3': np.dtype('int64')}
+   dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),'Name reviewer2': np.dtype('O'), 'Review score2': np.dtype('int64'), 'Name reviewer3': np.dtype('O'), 'Review score3': np.dtype('int64')}
 
    #csv issues
    if (df.isnull().sum().sum() != 0):
