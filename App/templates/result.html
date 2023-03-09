@@ -357,7 +357,10 @@
                       "</td>";
                   }
                   if (j == 9) {
-                    // data[i] = encodeURI(data[i]).replaceAll("%5C", "");
+                    data[i] =
+                      "https://mango-cmu.instructure.com/courses" +
+                      encodeURI(data[i]).split("courses")[1];
+                    data[i] = data[i].replaceAll("%5C", "");
                   }
                   rowambi.push(data[i]);
                   i++;
@@ -432,7 +435,6 @@
               }
               if (l < 9) datatable += "<td>" + data[l] + "</td>";
               else {
-                console.log(data[l]);
                 link =
                   "https://mango-cmu.instructure.com/courses" +
                   encodeURI(data[l]).split("courses")[1];
