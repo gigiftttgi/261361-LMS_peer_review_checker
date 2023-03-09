@@ -129,9 +129,9 @@ async def writeToCSV():
         w.writerow(fields)
 
         for i in range(len(userid)):
-             URLL = "https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11724/submissions/" + str(userid[i])
+             URLL = "https://mango-cmu.instructure.com/api/v1/courses/" + str(courseid) + "/assignments/" + str(assignid) + "/submissions/" + str(userid[i])
             #  link = requests.get(URLL, headers = {'Authorization': 'Bearer ' + TOKEN}).json()["attachments"][0]["url"]
-             link = requests.get(URLL, headers = {'Authorization': 'Bearer ' + TOKEN}).json()["preview_url"]
+             link = requests.get(URLL, headers = {'Authorization': 'Bearer ' + token}).json()["preview_url"]
              w.writerow([int(userid[i]),username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i]),str(link)])
     return True
 
