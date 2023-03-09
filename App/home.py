@@ -22,7 +22,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 global ambilist
 global badlist
 global error
-
+global token
+global courseid
+global assignid
+global rubricid
 
 @app.route('/')
 def Home():
@@ -33,10 +36,9 @@ def API():
    return render_template("api.html")
 
 async def getAssess():
-   URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/rubrics/2576?include%5B%5D=peer_assessments'
-   TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
+   URL = 'https://mango-cmu.instructure.com/api/v1/courses/'
    f = open('assesments.py', 'w')
-   response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
+   response = requests.get(URL + courseid + '/rubrics/' + rubricid + '?include%5B%5D=peer_assessments', headers = {'Authorization': 'Bearer ' + token})
 
    f.write('assessments = [')
    for i in range(len(response.json()['assessments'])):
@@ -47,10 +49,9 @@ async def getAssess():
 
 async def getReview():
    await getAssess()
-   URL = 'https://mango-cmu.instructure.com/api/v1/courses/1306/assignments/11724/peer_reviews'
-   TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
+   URL = 'https://mango-cmu.instructure.com/api/v1/courses/'
    f = open('peerreview.py', 'w')
-   response = requests.get(URL, headers = {'Authorization': 'Bearer ' + TOKEN})
+   response = requests.get(URL+courseid + '/assignments/' + assignid + '/peer_reviews', headers = {'Authorization': 'Bearer ' + token})
 
    f.write('ureview = [')
    for i in range(len(response.json())):
@@ -61,8 +62,7 @@ async def getReview():
 
 async def writeToCSV():
     await getReview()
-    URL = "https://mango-cmu.instructure.com/api/v1/courses/1306/"
-    TOKEN = "21123~1DzPEBsrQbKmg1oi43V1Duv0javDsubpjAwRfoFCKawyphSslrCl1mGvX9XOcrpB"
+    URL = "https://mango-cmu.instructure.com/api/v1/courses/"
 
     userid = []
     username = []
@@ -87,9 +87,9 @@ async def writeToCSV():
         if userid.count(i['user_id']) == 0:
             check.append(1)
             userid.append(i['user_id'])
-            username.append(requests.get(URL+"users/"+str(i["user_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"])
+            username.append(requests.get(URL+ courseid + '/' +"users/"+str(i["user_id"]), headers = {'Authorization': 'Bearer ' + token}).json()["name"])
             a1id.append(i["assessor_id"])
-            a1name.append(requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]) 
+            a1name.append(requests.get(URL+ courseid + '/' +"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + token}).json()["name"]) 
             a2id.append(-1)
             a2name.append("xxx")
             a3id.append(-1)
@@ -101,11 +101,11 @@ async def writeToCSV():
             index = userid.index(i["user_id"])
             if check[index] == 1:
                 a2id[index] = i["assessor_id"]
-                a2name[index] = requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]
+                a2name[index] = requests.get(URL+ courseid + '/'+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + token}).json()["name"]
                 check[index] = 2
             elif check[index] == 2:
                 a3id[index] = i["assessor_id"]
-                a3name[index] = requests.get(URL+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + TOKEN}).json()["name"]
+                a3name[index] = requests.get(URL+ courseid + '/'+"users/"+str(i["assessor_id"]), headers = {'Authorization': 'Bearer ' + token}).json()["name"]
                 check[index] = 3
 
     for j in n_assessments:
@@ -129,7 +129,7 @@ async def writeToCSV():
         w.writerow(fields)
 
         for i in range(len(userid)):
-            w.writerow([int(userid[i]),username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i])])
+            w.writerow([int(userid[i]),username[i], int(assignid), a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i])])
     return True
 
 @app.route('/fetchapi')
@@ -142,10 +142,26 @@ async def FetchAPI():
 
 @app.route('/fetch', methods=['POST'])
 async def Fetch():
+   global courseid
+   global assignid
+   global rubricid
+   global token
    courseid = request.form['courseid']
-   print(courseid)
+   assignid = request.form['assignid']
+   rubricid = request.form['rubricid']
+   token = request.form['TOKEN']
+   # print(courseid)
+   # print(assignid)
+   # print(rubricid)
+   # print(token)
    a = await writeToCSV()
    return redirect(url_for('Processing'))
+   # return redirect(url_for('fetchapi'))
+
+
+# @app.route('/fetchcomplete')
+# async def FetchComplete():
+#    return redirect(url_for('Processing'))
 
 @app.route('/fetch-error')
 async def FetchError():
@@ -163,18 +179,22 @@ def UploadError():
 def Processing():  
    return render_template("process.html")
 
+# def swap_columns(df, col1, col2):
+#     col_list = list(df.columns)
+#     x, y = col_list.index(col1), col_list.index(col2)
+#     col_list[y], col_list[x] = col_list[x], col_list[y]
+#     df = df[col_list]
+#     return df
+
 @app.route('/process')
 def Process():
 
    global error
 
    dff  = pd.read_csv("uploads/input.csv")
-
    df = dff.drop(['ID'], axis='columns')
-
    df = df.replace('',np.nan)
-   dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),
-         'Name reviewer2': np.dtype('O'), 'Review score2': np.dtype('int64'), 'Name reviewer3': np.dtype('O'), 'Review score3': np.dtype('int64')}
+   dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),'Name reviewer2': np.dtype('O'), 'Review score2': np.dtype('int64'), 'Name reviewer3': np.dtype('O'), 'Review score3': np.dtype('int64')}
 
    #csv issues
    if (df.isnull().sum().sum() != 0):
@@ -203,16 +223,12 @@ def Process():
          dfS.append(dfd.iloc[i][2])
          dfS.sort(reverse=True)
 
-         if(-1 in dfS):
-            error = "missing"
-            return jsonify("process-error-mising")
-
          a = dfS[0] - dfS[1]
          b = dfS[1] - dfS[2]
     
          if 1 >= abs(a-b) >= 0:
             if st.stdev(dfS)>1.6:   #find ambigious
-               ambi.append(dff.iloc[i])
+               ambi.append(df.iloc[i])
          elif (a+b) >=3:     #still improving
             sus.append(df.iloc[i])      #find sus
             if a>b :
