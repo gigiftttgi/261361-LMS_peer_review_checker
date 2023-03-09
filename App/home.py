@@ -76,6 +76,7 @@ async def writeToCSV():
     s2 = []
     s3 = []
     check = []
+    link = []
     n_peerreview = peerreview.ureview
     n_assessments = assesments.assessments
 
@@ -118,9 +119,8 @@ async def writeToCSV():
                     s2[index] = j["score"]
                 elif a3id[index] == j["assessor_id"]:
                     s3[index] = j["score"]
-
-
-    fields = ['ID', 'Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3']
+    
+    fields = ['ID', 'Name', 'Assignment', 'Name reviewer1', 'Review score1', 'Name reviewer2', 'Review score2', 'Name reviewer3', 'Review score3','Link']
 
     with open('uploads/input.csv', 'w', newline='') as file:
         # w = csv.DictWriter(file, fieldnames = fields)
@@ -129,7 +129,10 @@ async def writeToCSV():
         w.writerow(fields)
 
         for i in range(len(userid)):
-            w.writerow([int(userid[i]),username[i], int(assignid), a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i])])
+             URLL = "https://mango-cmu.instructure.com/api/v1/courses/" + str(courseid) + "/assignments/" + str(assignid) + "/submissions/" + str(userid[i])
+            #  link = requests.get(URLL, headers = {'Authorization': 'Bearer ' + TOKEN}).json()["attachments"][0]["url"]
+             link = requests.get(URLL, headers = {'Authorization': 'Bearer ' + token}).json()["preview_url"]
+             w.writerow([int(userid[i]),username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i]),str(link)])
     return True
 
 @app.route('/fetchapi')
@@ -192,7 +195,9 @@ def Process():
    global error
 
    dff  = pd.read_csv("uploads/input.csv")
-   df = dff.drop(['ID'], axis='columns')
+
+   df = dff.drop(['ID',"Link"], axis='columns')
+
    df = df.replace('',np.nan)
    dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),'Name reviewer2': np.dtype('O'), 'Review score2': np.dtype('int64'), 'Name reviewer3': np.dtype('O'), 'Review score3': np.dtype('int64')}
 
