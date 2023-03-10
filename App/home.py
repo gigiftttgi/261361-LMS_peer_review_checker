@@ -21,6 +21,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 global ambilist
 global badlist
+global mode
 global error
 global token
 global courseid
@@ -149,6 +150,8 @@ async def Fetch():
    global assignid
    global rubricid
    global token
+   global mode
+   mode = "API"
    courseid = request.form['courseid']
    assignid = request.form['assignid']
    rubricid = request.form['rubricid']
@@ -196,7 +199,10 @@ def Process():
 
    dff  = pd.read_csv("uploads/input.csv")
 
-   df = dff.drop(['ID',"Link"], axis='columns')
+   if set(['ID','Link']).issubset(dff.columns):
+      df = dff.drop(['ID',"Link"], axis='columns')
+   else:
+      df = dff
 
    df = df.replace('',np.nan)
    dt = {'Name': np.dtype('O'), 'Assignment': np.dtype('int64'), 'Name reviewer1': np.dtype('O'), 'Review score1': np.dtype('int64'),'Name reviewer2': np.dtype('O'), 'Review score2': np.dtype('int64'), 'Name reviewer3': np.dtype('O'), 'Review score3': np.dtype('int64')}
@@ -314,7 +320,8 @@ def ProcessError():
 def Result():
    global badlist
    global ambilist
-   return render_template("result.html", ambiresult = ambilist, badresult = badlist)
+   global mode
+   return render_template("result.html", ambiresult = ambilist, badresult = badlist , mode = mode)
 
 
 def allowed_file(filename):
@@ -323,6 +330,8 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['POST'])
 def uploader():
+    global mode
+    mode = "UPLOAD"
     if request.method == 'POST':
       f = request.files['filename']
       if f and allowed_file(f.filename) :

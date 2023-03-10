@@ -254,7 +254,10 @@
                     <th>Assignment</th>
                   </tr>
                 </thead>
-                <tbody id="badtable" data-value="{{ badresult }}"></tbody>
+                <tbody
+                  id="badtable"
+                  data-value="{{ badresult , mode }}"
+                ></tbody>
               </table>
               <div id="table-container"></div>
             </div>
@@ -287,7 +290,10 @@
                     <th>Link</th>
                   </tr>
                 </thead>
-                <tbody id="ambitable" data-value="{{ ambiresult }}"></tbody>
+                <tbody
+                  id="ambitable"
+                  data-value="{{ ambiresult , mode }}"
+                ></tbody>
               </table>
               <div id="table-container"></div>
             </div>
@@ -336,38 +342,68 @@
             document.getElementById("trambidata").style.display = "none";
             var ambidata = document.getElementById("ambitable").dataset.value;
             if (ambidata != "") {
-              ambidata = ambidata.replace(/[.'"|[\]]|/g, "");
-              // console.log(ambidata);
+              ambidata = ambidata.replace(/[.')("|[\]]|/g, "");
               var data = ambidata.split(",");
-              var csvambi = [
-                "ID,Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3",
-              ];
-              var ambitable = [];
-              var i = 0;
-              while (i < data.length) {
-                ambitable += "<tr>";
-                var rowambi = [];
-                for (j = 0; j < 10; j++) {
-                  if ((j == 1) | (j == 2)) {
-                    ambitable +=
-                      "<td onclick='clicktd(event," +
-                      i +
-                      ")' style='cursor: pointer;'>" +
-                      data[i] +
-                      "</td>";
+              var mode = data[data.length - 1];
+              data.pop();
+              if (mode == "API") {
+                var csvambi = [
+                  "ID,Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3,Link",
+                ];
+                var ambitable = [];
+                var i = 0;
+                while (i < data.length) {
+                  ambitable += "<tr>";
+                  var rowambi = [];
+                  for (j = 0; j < 10; j++) {
+                    if ((j == 1) | (j == 2)) {
+                      ambitable +=
+                        "<td onclick='clicktd(event," +
+                        i +
+                        ")' style='cursor: pointer;'>" +
+                        data[i] +
+                        "</td>";
+                    }
+                    if (j == 9 && data[i] != "") {
+                      // console.log("Data" + data[i]);
+                      data[i] =
+                        "https://mango-cmu.instructure.com/courses" +
+                        encodeURI(data[i]).split("courses")[1];
+                      data[i] = data[i].replaceAll("%5C", "");
+                    }
+                    rowambi.push(data[i]);
+                    i++;
                   }
-                  if (j == 9) {
-                    data[i] =
-                      "https://mango-cmu.instructure.com/courses" +
-                      encodeURI(data[i]).split("courses")[1];
-                    data[i] = data[i].replaceAll("%5C", "");
-                  }
-                  rowambi.push(data[i]);
-                  i++;
+                  csvambi.push(rowambi.join(","));
+                  ambitable += "</tr>";
                 }
-                csvambi.push(rowambi.join(","));
-                ambitable += "</tr>";
+              } else {
+                console.log(data);
+                var csvambi = [
+                  "Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3",
+                ];
+                var ambitable = [];
+                var i = 0;
+                while (i < data.length) {
+                  ambitable += "<tr>";
+                  var rowambi = [];
+                  for (j = 0; j < 8; j++) {
+                    if ((j == 0) | (j == 1)) {
+                      ambitable +=
+                        "<td onclick='clicktd(event," +
+                        i +
+                        ")' style='cursor: pointer;'>" +
+                        data[i] +
+                        "</td>";
+                    }
+                    rowambi.push(data[i]);
+                    i++;
+                  }
+                  csvambi.push(rowambi.join(","));
+                  ambitable += "</tr>";
+                }
               }
+
               csvambi = csvambi.join("\n");
               linkdownload(csvambi, "ambi");
               document.getElementById("ambitable").innerHTML = ambitable;
@@ -379,7 +415,7 @@
           function printbadtable() {
             var baddata = document.getElementById("badtable").dataset.value;
             if (baddata != "") {
-              baddata = baddata.replace(/[.'"|[\]]|/g, "");
+              baddata = baddata.replace(/[.'")(|[\]]|/g, "");
               var data = baddata.split(",");
               var csvbad = ["Name,Assignment,Name reviewer,Review score"];
               var badtable = [];
@@ -424,28 +460,47 @@
           function clicktd(event, i) {
             var id;
             //print data of this ambi review
-            csvambi = printambitable().split("\n");
-            var index = Math.floor(i / 8) + 1;
-            var datatable = [];
-            data = csvambi[index].split(",");
-            datatable += "<tr>";
-            for (l = 0; l < 10; l++) {
-              if (l == 0) {
-                id = data[l];
+            var csvambi = printambitable().split("\n");
+            var data = csvambi[0].split(",");
+            if (data.length == 8) {
+              var index = Math.floor(i / 8) + 1;
+              var datatable = [];
+              data = csvambi[index].split(",");
+              datatable += "<tr>";
+              for (l = 0; l < 8; l++) {
+                if (l == 0) {
+                  id = data[l];
+                }
+                datatable += "<td>" + data[l] + "</td>";
               }
-              if (l < 9) datatable += "<td>" + data[l] + "</td>";
-              else {
-                link =
-                  "https://mango-cmu.instructure.com/courses" +
-                  encodeURI(data[l]).split("courses")[1];
-                link = link.replaceAll("%5C", "");
-                datatable +=
-                  "<td><a href='" +
-                  link +
-                  "'  target='_blank' style='text-decoration: none ,color: #161616' >Link</a></td>";
+              datatable += "</tr>";
+              t = document.getElementById("trambidata");
+              t.innerHTML =
+                "<th style='border-left: 0px'>Name</th><th>Assignment</th><th>Reviwer 1</th><th>Review score 1</th><th>Reviwer 2</th><th>Review score 2</th><th>Reviwer 3</th><th>Review score 3</th>";
+            } else {
+              var index = Math.floor(i / 8) + 1;
+              var datatable = [];
+              data = csvambi[index].split(",");
+              datatable += "<tr>";
+              for (l = 0; l < 10; l++) {
+                if (l == 0) {
+                  id = data[l];
+                }
+                if (l < 9) datatable += "<td>" + data[l] + "</td>";
+                else {
+                  link =
+                    "https://mango-cmu.instructure.com/courses" +
+                    encodeURI(data[l]).split("courses")[1];
+                  link = link.replaceAll("%5C", "");
+                  datatable +=
+                    "<td><a href='" +
+                    link +
+                    "'  target='_blank' style='text-decoration: none ,color: #161616' >Link</a></td>";
+                }
               }
+              datatable += "</tr>";
             }
-            datatable += "</tr>";
+
             document.getElementById("ambitable").innerHTML = datatable;
 
             // display head table
