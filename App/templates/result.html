@@ -250,7 +250,7 @@
                   <tr>
                     <th style="border-left: 0px">Reviewer</th>
                     <th>Review score</th>
-                    <th>NameName</th>
+                    <th>Name</th>
                     <th>Assignment</th>
                   </tr>
                 </thead>
@@ -372,7 +372,8 @@
                       // console.log("Data" + data[i]);
                       data[i] =
                         "https://mango-cmu.instructure.com/courses" +
-                        encodeURI(data[i]).split("courses")[1];
+                        encodeURI(data[i]).split("courses")[1].split("?")[0] +
+                        "?";
                       data[i] = data[i].replaceAll("%5C", "");
                     }
                     rowambi.push(data[i]);
@@ -495,7 +496,8 @@
                 else {
                   link =
                     "https://mango-cmu.instructure.com/courses" +
-                    encodeURI(data[l]).split("courses")[1];
+                    encodeURI(data[l]).split("courses")[1].split("?")[0] +
+                    "?";
                   link = link.replaceAll("%5C", "");
                   datatable +=
                     "<td><a href='" +
