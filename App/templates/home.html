@@ -33,11 +33,11 @@
       </a>
     </div>
     <!-- <div class="homebody"> -->
-    <div class="left">
+    <!-- <div class="left">
       <img src="{{url_for('static', filename='2456037.png')}}" width="700px" />
-    </div>
+    </div> -->
     <!-- </div> -->
-    <div class="content">
+    <!-- <div class="content">
       <div style="text-align: center">
         <div>
           <span style="font-size: 30px; color: #088f8f"
@@ -45,9 +45,10 @@
           >
         </div>
         <div style="padding: 20px 10px 20px 10px">
-          <span style="font-size: 20px; color: #161616"
-            >System for analyze scores to identify bad reviewers and ambiguous
-            cases</span
+          <span style="font-size: 17px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font: 1em sans-serif; color: #161616"
+            >A system is designed for analyzing irregular scores given by three reviewers. Each reviewer can give a score within the range of 0-10 points. The system has two functions. The first function is to upload a CSV file that contains the following attributes: "Name, Assignment, Name of reviewer 1, score 1, Name of reviewer 2, score 2, Name of reviewer 3 and score 3." The data type for each attribute should only be "String" for name and "int" for score and assignment.
+
+            The second function of the system involves pulling data from Mango API. To access this function, you will need to provide a course ID, assignment ID, rubric ID, and professor's token.</span
           >
         </div>
         <div style="display: flex; justify-content: center">
@@ -59,7 +60,30 @@
           </button>
         </div>
       </div>
+    </div> -->
+
+    <div class="grid-con">
+      <div class="grid-item-1">
+        <img src="{{url_for('static', filename='2456037.png')}}" width="700px" />
+      </div>
+      <div class="grid-item-2">
+        <div class="grid-item-info">
+          <h2>LMS PEERREVIEW CHECKER</h2>
+          <p>A system is designed for analyzing irregular scores given by three reviewers. Each reviewer can give a score within the range of 0-10 points. The system has two functions.</p>
+          <p>The first function is to upload a CSV file that contains the following attributes: "Name, Assignment, Name of reviewer 1, score 1, Name of reviewer 2, score 2, Name of reviewer 3 and score 3." The data type for each attribute should only be "String" for name and "int" for score and assignment.</p>
+          <p>The second function of the system involves pulling data from Mango API. To access this function, you will need to provide a course ID, assignment ID, rubric ID, and professor's token.</p>
+        </div>
+        <div class="grid-button">
+          <button class="homebtn" onclick="window.location.href='/upload'">
+            Upload File .csv
+          </button>
+          <button class="homebtn" onclick="window.location.href='/api'">
+            Mango API
+          </button>
+        </div>
+      </div>
     </div>
+
     <script></script>
   </body>
 </html>
