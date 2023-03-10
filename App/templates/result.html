@@ -343,10 +343,14 @@
             var ambidata = document.getElementById("ambitable").dataset.value;
             if (ambidata != "") {
               ambidata = ambidata.replace(/[.')("|[\]]|/g, "");
+              ambidata = ambidata.replace(" ", "");
               var data = ambidata.split(",");
               var mode = data[data.length - 1];
               data.pop();
-              if (mode == "API") {
+              console.log(ambidata);
+              console.log(mode);
+              if (mode == " API") {
+                console.log(mode);
                 var csvambi = [
                   "ID,Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3,Link",
                 ];
@@ -364,7 +368,7 @@
                         data[i] +
                         "</td>";
                     }
-                    if (j == 9 && data[i] != "") {
+                    if (j == 9) {
                       // console.log("Data" + data[i]);
                       data[i] =
                         "https://mango-cmu.instructure.com/courses" +
@@ -378,7 +382,6 @@
                   ambitable += "</tr>";
                 }
               } else {
-                console.log(data);
                 var csvambi = [
                   "Name,Assignment,Name reviewer1,Review score1,Name reviewer2,Review score2,Name reviewer3,Review score3",
                 ];
@@ -403,7 +406,6 @@
                   ambitable += "</tr>";
                 }
               }
-
               csvambi = csvambi.join("\n");
               linkdownload(csvambi, "ambi");
               document.getElementById("ambitable").innerHTML = ambitable;
@@ -417,6 +419,7 @@
             if (baddata != "") {
               baddata = baddata.replace(/[.'")(|[\]]|/g, "");
               var data = baddata.split(",");
+              data.pop();
               var csvbad = ["Name,Assignment,Name reviewer,Review score"];
               var badtable = [];
               var i = 0;
@@ -460,7 +463,9 @@
           function clicktd(event, i) {
             var id;
             //print data of this ambi review
+            console.log(printambitable());
             var csvambi = printambitable().split("\n");
+            console.log(csvambi);
             var data = csvambi[0].split(",");
             if (data.length == 8) {
               var index = Math.floor(i / 8) + 1;

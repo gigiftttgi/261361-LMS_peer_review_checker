@@ -22,6 +22,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 global ambilist
 global badlist
 global mode
+mode = "API"
 global error
 global token
 global courseid
@@ -151,7 +152,6 @@ async def Fetch():
    global rubricid
    global token
    global mode
-   mode = "API"
    courseid = request.form['courseid']
    assignid = request.form['assignid']
    rubricid = request.form['rubricid']
@@ -239,7 +239,7 @@ def Process():
     
          if 1 >= abs(a-b) >= 0:
             if st.stdev(dfS)>1.6:   #find ambigious
-               ambi.append(df.iloc[i])
+               ambi.append(dff.iloc[i])
          elif (a+b) >=3:     #still improving
             sus.append(df.iloc[i])      #find sus
             if a>b :
