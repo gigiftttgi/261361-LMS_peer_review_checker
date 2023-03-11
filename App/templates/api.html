@@ -232,10 +232,24 @@
           method="post"
           id="myform"
         >
-          <input type="text" name="courseid" placeholder="Enter course id" />
-          <input type="text" name="assignid" placeholder="Enter assignment id">
-          <input type="text" name="rubricid" placeholder="Enter rubric id">
-          <input type="text" name="TOKEN" placeholder="Enter TOKEN">
+          <div class="gridapi">
+            <div class="grid-api">
+              <p> Course ID :</p>
+              <input type="text" name="courseid" placeholder="Enter course id" />
+            </div>
+            <div class="grid-api">
+              <p>Assignment ID :</p>
+              <input type="text" name="assignid" placeholder="Enter assignment id">
+            </div>
+            <div class="grid-api">
+              <p>Rubric ID :</p>
+              <input type="text" name="rubricid" placeholder="Enter rubric id">
+            </div>
+            <div class="grid-api">
+              <p>TOKEN :</p>
+              <input type="text" name="TOKEN" placeholder="Enter TOKEN">
+            </div>
+          </div>
         </form>
         <button class="uploadbtn" type="submit" value="submit" form="myform">
           Fetch
