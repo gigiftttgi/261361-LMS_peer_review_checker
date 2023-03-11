@@ -7,6 +7,7 @@ python 3.0 up
 
 How to run
 
+0. python -m pip install requests
 1. _cd app_
 2. _pip install requests , pip install flask[async]_
 3. _python3 -m venv venv_
