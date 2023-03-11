@@ -8,9 +8,10 @@ python 3.0 up
 How to run
 
 0. python -m pip install requests
-1. _cd app_
-2. _pip install requests , pip install flask[async]_
-3. _python3 -m venv venv_
+1. pip install asgiref
+2. _cd app_
+3. _pip install requests , pip install flask[async]_
+4. _python3 -m venv venv_
 
 if your pip is under 23.0
 upgrade : _pip install --upgrade pip_
