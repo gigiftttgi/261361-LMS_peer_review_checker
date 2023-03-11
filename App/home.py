@@ -134,7 +134,7 @@ async def writeToCSV():
              URLL = "https://mango-cmu.instructure.com/api/v1/courses/" + str(courseid) + "/assignments/" + str(assignid) + "/submissions/" + str(userid[i])
             #  link = requests.get(URLL, headers = {'Authorization': 'Bearer ' + TOKEN}).json()["attachments"][0]["url"]
              link = requests.get(URLL, headers = {'Authorization': 'Bearer ' + token}).json()["preview_url"]
-             w.writerow([int(userid[i]),username[i], 11301, a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i]),str(link)])
+             w.writerow([int(userid[i]),username[i], int(assignid), a1name[i], int(s1[i]), a2name[i], int(s2[i]), a3name[i], int(s3[i]),str(link)])
     return True
 
 @app.route('/fetchapi')
@@ -152,16 +152,21 @@ async def Fetch():
    global rubricid
    global token
    global mode
+   URL = 'https://mango-cmu.instructure.com/api/v1/courses/'
    courseid = request.form['courseid']
    assignid = request.form['assignid']
    rubricid = request.form['rubricid']
    token = request.form['TOKEN']
-   # print(courseid)
-   # print(assignid)
-   # print(rubricid)
-   # print(token)
-   a = await writeToCSV()
-   return redirect(url_for('Processing'))
+
+   if((requests.get(URL+str(courseid), headers = {'Authorization': 'Bearer ' + token})).status_code != 200):
+      return redirect(url_for('fetch-error'))
+   elif((requests.get(URL+str(courseid)+ "/assignments/" + str(assignid)+'/peer_reviews', headers = {'Authorization': 'Bearer ' + token})).status_code != 200):
+      return redirect(url_for('fetch-error'))
+   elif((requests.get(URL+str(courseid)+ '/rubrics/'+str(rubricid)+ '?include%5B%5D=peer_assessments', headers = {'Authorization': 'Bearer ' + token})).status_code != 200):
+      return redirect(url_for('fetch-error'))
+   else:
+      a = await writeToCSV()
+      return redirect(url_for('Processing'))
    # return redirect(url_for('fetchapi'))
 
 
