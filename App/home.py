@@ -159,11 +159,11 @@ async def Fetch():
    token = request.form['TOKEN']
 
    if((requests.get(URL+str(courseid), headers = {'Authorization': 'Bearer ' + token})).status_code != 200):
-      return redirect(url_for('fetch-error'))
+      return redirect(url_for('fetchError'))
    elif((requests.get(URL+str(courseid)+ "/assignments/" + str(assignid)+'/peer_reviews', headers = {'Authorization': 'Bearer ' + token})).status_code != 200):
-      return redirect(url_for('fetch-error'))
+      return redirect(url_for('fetchError'))
    elif((requests.get(URL+str(courseid)+ '/rubrics/'+str(rubricid)+ '?include%5B%5D=peer_assessments', headers = {'Authorization': 'Bearer ' + token})).status_code != 200):
-      return redirect(url_for('fetch-error'))
+      return redirect(url_for('fetchError'))
    else:
       a = await writeToCSV()
       return redirect(url_for('Processing'))
