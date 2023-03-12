@@ -439,6 +439,7 @@ body {
 
 .selectrw {
   overflow: hidden;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   /* padding: 5px 0px 5px 0px; */
   border: 2px solid #088f8f;
   border-radius: 20px;
@@ -468,6 +469,7 @@ body {
 }
 
 .tablebd {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border: 1px solid #e8e8e8;
   width: 860px;
   height: 425px;
@@ -489,6 +491,7 @@ table {
 
 th {
   padding: 12px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border-bottom: 2px solid #e8e8e8;
   background: #ffffff;
   color: #088f8f;
@@ -499,6 +502,7 @@ th {
 /* Basic Demo styling */
 
 table td {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
   color: #161616;
   padding: 8px;
