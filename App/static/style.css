@@ -5,7 +5,7 @@ body {
   background: #f9f9f9;
   color: #161616;
   /* font-family: "Prompt", sans-serif; */
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 600;
   /* width: 100%; */
   position: relative;
@@ -52,18 +52,15 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .grid-item-info p {
   margin: 0.5rem 0rem;
   font-weight: lighter;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .grid-item-info h2 {
   color: #088f8f;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .grid-button {
@@ -87,13 +84,11 @@ body {
   display: flex;
   flex-direction: left;
   font-weight: lighter;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .grid-api input {
   width: 300px;
   height: 25px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .left {
@@ -127,7 +122,6 @@ body {
   font-size: 15px;
   width: 150px;
   height: 50px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .homebtn:hover {
@@ -141,14 +135,12 @@ body {
   margin: 20px 30px 20px 30px;
   padding: 5px 0px 5px 0px;
   font-size: 15px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 /*header*/
 .header {
   margin-top: 0px;
   font-size: 19px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: right;
   background: #ffffff;
   border-bottom: 2px solid #e8e8e8;
@@ -356,11 +348,9 @@ body {
   margin: 20px 0px 0px 555px;
   float: right;
   background-color: #ffffff;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .uploadbtn:hover {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: #088f8f;
   color: white;
   border: 3px solid #ffffff;
@@ -377,7 +367,6 @@ body {
 }
 
 .file_upload {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: #088f8f;
 }
 
@@ -414,7 +403,6 @@ body {
 /* Process error page */
 .trybtn {
   font-size: 20px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border: 3px solid #088f8f;
   color: #088f8f;
   border-radius: 15px;
@@ -424,7 +412,6 @@ body {
 }
 
 .trybtn:hover {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: #088f8f;
   color: white;
   border: 3px solid #088f8f;
@@ -439,7 +426,6 @@ body {
 
 .selectrw {
   overflow: hidden;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   /* padding: 5px 0px 5px 0px; */
   border: 2px solid #088f8f;
   border-radius: 20px;
@@ -449,7 +435,6 @@ body {
 .selctbtn {
   color: #088f8f;
   font-size: 20px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   padding: 5px 8px 5px 8px;
   border-radius: 20px;
   background-color: #ffffff;
@@ -461,7 +446,6 @@ body {
 .selctbtn-active {
   color: #ffffff;
   font-size: 20px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   padding: 5px 8px 5px 8px;
   border-style: hidden;
   border-radius: 18px;
@@ -469,7 +453,6 @@ body {
 }
 
 .tablebd {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border: 1px solid #e8e8e8;
   width: 860px;
   height: 425px;
@@ -491,7 +474,6 @@ table {
 
 th {
   padding: 12px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border-bottom: 2px solid #e8e8e8;
   background: #ffffff;
   color: #088f8f;
@@ -502,7 +484,6 @@ th {
 /* Basic Demo styling */
 
 table td {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
   color: #161616;
   padding: 8px;
@@ -512,18 +493,15 @@ tbody tr {
 }
 thead {
   font-weight: 500;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: #161616;
 }
 tbody tr:hover {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background: #daf3ff;
 }
 
 .dlbtn {
   color: #088f8f;
   font-size: 17px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   padding: 5px 8px 5px 8px;
   margin: 5px 0px 0px 0px;
   border-radius: 20px;
